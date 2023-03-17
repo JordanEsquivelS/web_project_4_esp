@@ -1,0 +1,13 @@
+.profile-info {
+  max-width: 415px;
+  max-height: 74px;
+  display: grid;
+  grid-template-columns: 373px 24px;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    "profile-info__nombre profile-info__edit"
+    "profile-info__about-me profile-info__about-me";
+  grid-column-gap: 18px;
+  border: 1px solid firebrick;
+  margin: auto 0 auto 30px;
+}

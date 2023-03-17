@@ -1,5 +1,14 @@
 @import url(/styles/normalize.css);
+@import url(/font/InterWeb/inter.css);
 @import url(/blocks/page/page.css);
 @import url(/blocks/header/header.css);
 @import url(/blocks/logo/logo.css);
 @import url(/blocks/line/line.css);
+@import url(/blocks/content/content.css);
+@import url(/blocks/profile/profile.css);
+@import url(/blocks/profile/__image/profile__image.css);
+@import url(/blocks/profile-info/profile-info.css);
+@import url(/blocks/profile-info/__nombre/profile-info__nombre.css);
+@import url(/blocks/profile-info/__edit/profile-info__edit.css);
+@import url(/blocks/profile-info/__about-me/profile-info__about-me.css);
+@import url(/blocks/profile/__agregar/profile__agregar.css);

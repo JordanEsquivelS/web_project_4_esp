@@ -1,0 +1,10 @@
+.profile-info__about-me {
+  grid-area: profile-info__about-me;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 13px 0 0 30px;
+  max-width: 100%;
+}
