@@ -2,8 +2,9 @@
 @import url(/font/InterWeb/inter.css);
 @import url(/blocks/page/page.css);
 @import url(/blocks/header/header.css);
-@import url(/blocks/logo/logo.css);
-@import url(/blocks/line/line.css);
+@import url(/blocks/header/__logo/header__logo.css);
+@import url(/blocks/header/__logo/_image/header__logo_image.css);
+@import url(/blocks/header/__line/header__line.css);
 @import url(/blocks/content/content.css);
 @import url(/blocks/profile/profile.css);
 @import url(/blocks/profile/__image/profile__image.css);
@@ -12,3 +13,4 @@
 @import url(/blocks/profile-info/__edit/profile-info__edit.css);
 @import url(/blocks/profile-info/__about-me/profile-info__about-me.css);
 @import url(/blocks/profile/__agregar/profile__agregar.css);
+@import url(/blocks/profile/__agregar/profile__agregar-image.css);

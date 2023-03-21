@@ -4,7 +4,18 @@
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
-  line-height: 22px;
-  margin: 13px 0 0 30px;
+  line-height: 1.22;
+  margin: 13px 0 0 0;
   max-width: 100%;
+}
+@media (max-width: 880px) {
+  .profile-info__about-me {
+    margin: 14px auto 0;
+  }
+}
+@media (max-width: 431px) {
+  .profile-info__about-me {
+    font-size: 14px;
+    line-height: 1.21;
+  }
 }

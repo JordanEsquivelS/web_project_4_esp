@@ -1,5 +1,26 @@
 .profile__agregar {
   width: 150px;
   height: 50px;
-  margin: auto 0 auto 165px;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-right: 0;
+}
+.profile__agregar:hover {
+  opacity: 0.4;
+  transition: opacity 0.3s ease-in-out;
+}
+@media (max-width: 880px) {
+  .profile__agregar {
+    margin: 36px auto 0;
+    width: 350px;
+  }
+}
+@media (max-width: 431px) {
+  .profile__agregar {
+    margin: 36px auto 0;
+    max-width: 100%;
+  }
 }

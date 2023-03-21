@@ -1,7 +1,24 @@
 .profile {
-  max-width: 880px;
+  max-width: 68.75%;
   margin: auto;
-  color: #ffffff;
   display: flex;
-  border: solid 1px fuchsia;
+  margin-top: 40px;
+}
+@media (max-width: 1070px) {
+  .profile {
+    max-width: 85%;
+  }
+}
+@media (max-width: 880px) {
+  .profile {
+    width: 80%;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 380px) {
+  .profile {
+    width: 88%;
+    margin-top: 42px;
+  }
 }

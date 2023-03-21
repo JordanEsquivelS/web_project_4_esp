@@ -10,8 +10,14 @@
   <body>
     <div class="page">
       <header class="header">
-        <img class="logo" src="/images/logo.svg" alt="Logo Arount" />
-        <img class="line" src="/images/Line.svg" alt="Linea Gris divisoria" />
+        <div class="header header__logo">
+          <img
+            class="header__logo header__logo_image"
+            src="/images/logo.svg"
+            alt="Logo Arount"
+          />
+        </div>
+        <div class="header__line"></div>
       </header>
       <main class="content">
         <div class="profile">
@@ -27,12 +33,15 @@
               <img
                 class="profile-info__edit"
                 src="/images/Edit_Button.svg"
-                alt="imagen de editar"
+                alt="boton de editar"
               />
             </a>
           </div>
           <a href="#" class="profile__agregar"
-            ><img src="/images/AddButton_blanco.svg" alt="boton de agregado"
+            ><img
+              class="profile__agregar-image"
+              src="/images/adicion.svg"
+              alt="boton de agregado"
           /></a>
         </div>
       </main>
