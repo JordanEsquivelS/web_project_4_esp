@@ -27,4 +27,4 @@ Se uso JavaScript para dar la funcionalidad de abrir un formulario flotante al d
 
 **GitHub Pages**
 El proyecto se subió a GitHub Pages, para que se pueda acceder mediante navegador de distintos lados.
-El link es el siguiente:
+El link es el siguiente: https://jordanesquivels.github.io/web_project_4_esp/
