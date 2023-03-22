@@ -2,15 +2,29 @@
 
 ### Descripción general
 
-* Figma
-* Imágenes
+- Introducción
+- Figma
+- Imágenes
+- Grid
+- JavaScript
+- Link del proyecto en GitHub Pages
+
+**Introducción**
+Este es un proyecto que muestra lugares alrededor de EE.UU donde se puede editar el perfil del usuario.
 
 **Figma**
 
-* [Enlace al proyecto en Figma](https://www.figma.com/file/LDMgqWesKpQkIwhOfEBuTS/WEB%2C-Sprint-5%3A-Around-The-U.S.-%7C-desktop-%2B-mobile?node-id=0%3A1)
+Se uso Figma como guía para obtener los datos y medidas, también un vistazo a como se vería la página en los distintos dispositivos.
 
 **Imágenes**
+Imagenes obtenidas de Figma y unsplash.com
 
-A la hora de trabajar, debes optar por exportar las imágenes directamente desde Figma; te recomendamos hacerlo para practicar más. No olvides optimizarlas [aquí](https://tinypng.com/), para que tu proyecto cargue más rápido. 
+**Grid**
+Se uso grid en este proyecto para poder organizar las imágenes de alrededor de EEUU.
 
-¡Esperamos que te diviertas con JavaScript!
+**JavaScript**
+Se uso JavaScript para dar la funcionalidad de abrir un formulario flotante al dar click en editar, y guardar los cambios al dar click en Guardar.
+
+**GitHub Pages**
+El proyecto se subió a GitHub Pages, para que se pueda acceder mediante navegador de distintos lados.
+El link es el siguiente:
