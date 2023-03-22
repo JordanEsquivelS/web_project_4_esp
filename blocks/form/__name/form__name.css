@@ -5,6 +5,9 @@
   border-right-style: hidden;
   border-left-style: hidden;
   border-bottom: 1px solid #000000;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
 }
 
 @media (max-width: 555px) {
