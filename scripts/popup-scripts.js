@@ -1,6 +1,6 @@
 let popup = document.querySelector(".popup");
 let edit = document.querySelector(".profile-info__edit");
-let close = document.querySelector(".popup__container_image");
+let close = document.querySelector(".popup__container-image");
 let guardar = document.querySelector(".form__guardar");
 let nameInput = document.querySelector(".form__name");
 let aboutMeInput = document.querySelector(".form__about-me");

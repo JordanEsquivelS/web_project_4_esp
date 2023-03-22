@@ -16,7 +16,7 @@
 @import url(/blocks/profile/__agregar/profile__agregar-image.css);
 @import url(/blocks/popup/popup.css);
 @import url(/blocks/popup/__container/popup__container.css);
-@import url(/blocks/popup/__container/_image/popup__container_image.css);
+@import url(/blocks/popup/__container-image/popup__container-image.css);
 @import url(/blocks/form/form.css);
 @import url(/blocks/form/__title/form__title.css);
 @import url(/blocks/form/__name/form__name.css);
