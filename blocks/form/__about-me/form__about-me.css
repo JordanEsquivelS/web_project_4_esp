@@ -1,0 +1,15 @@
+.form__about-me {
+  width: 358px;
+  margin: 29.74px 0 48px 0;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom: 1px solid #000000;
+}
+
+@media (max-width: 555px) {
+  .form__about-me {
+    max-width: 238px;
+    margin: 30px auto 46px;
+  }
+}

@@ -1,0 +1,15 @@
+.form__name {
+  width: 358px;
+  margin: 54px 0 0 0px;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom: 1px solid #000000;
+}
+
+@media (max-width: 555px) {
+  .form__name {
+    max-width: 238px;
+    margin: 76px auto 0;
+  }
+}

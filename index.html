@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/pages/index.css" />
-    <title>Document</title>
+    <title>Around the USA</title>
   </head>
   <body>
     <div class="page">
@@ -27,8 +27,8 @@
             alt="Imagen oficial naval francés, explorador, investigador y biólogo marino Jacques Cousteau sonriente y con un gorro rojo"
           />
           <div class="profile-info">
-            <p class="profile-info__nombre">Jacques Cousteau</p>
-            <p class="profile-info__about-me">Explorador</p>
+            <h1 class="profile-info__nombre">Jacques Cousteau</h1>
+            <h2 class="profile-info__about-me">Explorador</h2>
             <a href="#">
               <img
                 class="profile-info__edit"
@@ -44,6 +44,40 @@
               alt="boton de agregado"
           /></a>
         </div>
+        <div class="popup">
+          <div class="popup__container">
+            <img
+              class="popup__container popup__container_image"
+              src="/images/CloseIcon_blanco.svg"
+              alt="boton de cerrar"
+            />
+            <form class="form">
+              <h2 class="form__title">Editar Perfil</h2>
+              <div>
+                <input
+                  class="form__name"
+                  type="text"
+                  id="name"
+                  name="name"
+                  maxlength="17"
+                />
+              </div>
+              <div>
+                <input
+                  class="form__about-me"
+                  type="text"
+                  id="form__about-me"
+                  name="form__about-me"
+                  maxlength="27"
+                />
+              </div>
+              <div>
+                <button class="form__guardar" type="submit">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <script src="/scripts/popup-scripts.js"></script>
       </main>
     </div>
   </body>

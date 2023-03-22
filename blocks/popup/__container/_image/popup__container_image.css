@@ -1,0 +1,19 @@
+.popup__container_image {
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin-left: auto;
+  cursor: pointer;
+  top: -10px;
+  right: -220px;
+}
+.popup__container_image:hover {
+  opacity: 0.4;
+  transition: opacity 0.3s ease-in-out;
+}
+@media (max-width: 555px) {
+  .popup__container_image {
+    top: -10px;
+  right: -110px;
+  }
+}
