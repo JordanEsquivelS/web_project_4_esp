@@ -3,7 +3,7 @@ const edit = document.querySelector(".profile-info__edit");
 const close = document.querySelector(".popup__container-image");
 const guardar = document.querySelector(".form__guardar");
 const nameInput = document.querySelector(".form__name");
-const aboutMeInput = document.querySelector(".form__about-me");
+const aboutMeInput = document.querySelector("#form__input-aboutMe");
 const nombre = document.querySelector(".profile-info__nombre");
 const aboutMe = document.querySelector(".profile-info__about-me");
 

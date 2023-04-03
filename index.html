@@ -44,7 +44,8 @@
               alt="boton de agregado"
           /></a>
         </div>
-        <div class="popup">
+
+        <div class="popup" id="editar-perfil">
           <div class="popup__container">
             <img
               class="popup__container-image"
@@ -58,7 +59,6 @@
                   class="form__name"
                   type="text"
                   id="name"
-                  name="name"
                   maxlength="16"
                   placeholder="Nombre"
                   required
@@ -66,10 +66,9 @@
               </div>
               <div>
                 <input
-                  class="form__about-me"
+                  class="form__input"
                   type="text"
-                  id="form__about-me"
-                  name="form__about-me"
+                  id="form__input-aboutMe"
                   maxlength="27"
                   placeholder="Acerca de mi"
                   required
@@ -81,6 +80,44 @@
             </form>
           </div>
         </div>
+
+        <div class="popup" id="nuevo-lugar">
+          <div class="popup__container">
+            <img
+              class="popup__container-image"
+              id="cerrarLugar"
+              src="images/CloseIcon_blanco.svg"
+              alt="boton de cerrar"
+            />
+            <form class="form">
+              <h2 class="form__title">Nuevo Lugar</h2>
+              <div>
+                <input
+                  class="form__name"
+                  type="text"
+                  id="titulo"
+                  placeholder="Titulo"
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  class="form__input"
+                  type="url"
+                  id="form__input-url"
+                  placeholder="Enlace a la Imagen"
+                  required
+                />
+              </div>
+              <div>
+                <button class="form__guardar" type="submit" id="crear">
+                  CREAR
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
         <div class="grid-container" id="grid-container"></div>
 
         <footer class="footer">
@@ -88,7 +125,8 @@
         </footer>
       </main>
     </div>
-    <script src="scripts/popup-scripts.js"></script>
+    <script src="scripts/popupProfile-scripts.js"></script>
+    <script src="scripts/popupImage.js"></script>
     <script src="scripts/cards-images.js"></script>
     <script src="scripts/like-script.js"></script>
   </body>
