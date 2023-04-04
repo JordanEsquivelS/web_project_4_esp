@@ -14,6 +14,8 @@ cerrarLugar.addEventListener("click", () => {
   form.reset();
 });
 
+let nextId = 1;
+
 // Agregar un evento de envío al formulario dentro de la ventana emergente
 form.addEventListener("submit", (evt) => {
   evt.preventDefault();
@@ -25,15 +27,21 @@ form.addEventListener("submit", (evt) => {
     alert("Por favor ingrese todos los datos.");
     return false;
   }
+
+  // Generar un nuevo ID para la tarjeta
+  const id = `card-${nextId}`;
+  nextId++;
+
   // Agregar la nueva tarjeta al principio del array initialCards
-  const nuevaTarjeta = { name: titulo, link };
+  const nuevaTarjeta = { id, name: titulo, link };
   initialCards.unshift(nuevaTarjeta);
 
   // Actualizar la cuadrícula de fotos en el archivo cards-images.js
   const photoGridContainer = document.getElementById("grid-container");
   const nuevaTarjetaHTML = `
-    <div class="photo-grid">
+    <div id="${id}" class="photo-grid">
       <img class="photo-grid__image" src="${link}" />
+      <img src="/images/delete.svg" alt="imagen de tacho de basura blanco" class="photo-grid__delete">
       <div class="photo-grid__description">
         <p class="photo-grid__text">${titulo}</p>
         <img class="photo-grid__like" src="images/corazon_blanco.svg" alt="icono de like o corazon" />
@@ -62,6 +70,29 @@ function agregarEventoLike() {
       } else {
         heartIcon.src = "images/corazon_blanco.svg";
       }
+    });
+  });
+
+  // Agregar un event listener a cada botón "photo-grid__delete"
+  let deleteButtons = document.querySelectorAll(".photo-grid__delete");
+
+  deleteButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      let card = button.parentNode;
+      let id = card.getAttribute("id");
+
+      // Buscar la tarjeta con el id correspondiente en initialCards
+      let tarjetaAEliminar = initialCards.find(function (tarjeta) {
+        return tarjeta.id === id;
+      });
+
+      // Eliminar la tarjeta del array initialCards
+      let index = initialCards.indexOf(tarjetaAEliminar);
+      if (index !== -1) {
+        initialCards.splice(index, 1);
+      }
+
+      photoGridContainer.removeChild(card);
     });
   });
 }
