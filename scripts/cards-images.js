@@ -37,5 +37,7 @@ initialCards.forEach((card) => {
       </div>
     </div>
   `;
+
   photoGridContainer.insertAdjacentHTML("beforeend", cardHTML);
 });
+

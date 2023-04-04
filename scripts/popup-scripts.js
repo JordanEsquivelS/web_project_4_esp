@@ -34,3 +34,4 @@ close.addEventListener("click", function () {
   /*popup.style.display = "none";*/
   popup.classList.remove("open");
 });
+
