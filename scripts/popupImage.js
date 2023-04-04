@@ -11,6 +11,7 @@ lugarAgregar.addEventListener("click", () => {
 const cerrarLugar = document.querySelector("#cerrarLugar");
 cerrarLugar.addEventListener("click", () => {
   popupNuevoLugar.classList.remove("open");
+  form.reset();
 });
 
 // Agregar un evento de envío al formulario dentro de la ventana emergente
