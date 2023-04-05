@@ -41,7 +41,7 @@ form.addEventListener("submit", (evt) => {
   const nuevaTarjetaHTML = `
     <div id="${id}" class="photo-grid">
       <img class="photo-grid__image" src="${link}" />
-      <img src="/images/delete.svg" alt="imagen de tacho de basura blanco" class="photo-grid__delete">
+      <img src="images/delete.svg" alt="imagen de tacho de basura blanco" class="photo-grid__delete">
       <div class="photo-grid__description">
         <p class="photo-grid__text">${titulo}</p>
         <img class="photo-grid__like" src="images/corazon_blanco.svg" alt="icono de like o corazon" />
