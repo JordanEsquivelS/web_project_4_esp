@@ -5,7 +5,7 @@
   padding: 0;
   cursor: pointer;
 }
-.photo-grid__like:hover{
+.photo-grid__like:hover {
   opacity: 0.4;
   transition: opacity 0.3s ease-in-out;
 }

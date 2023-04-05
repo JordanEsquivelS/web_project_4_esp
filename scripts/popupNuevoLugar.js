@@ -59,7 +59,6 @@ form.addEventListener("submit", (evt) => {
   // Aplicar el evento de clic a todas las imágenes
   agregarEventoLike();
 });
-
 function agregarEventoLike() {
   let heartIcons = document.querySelectorAll(".photo-grid__like");
 
@@ -92,6 +91,8 @@ function agregarEventoLike() {
         initialCards.splice(index, 1);
       }
 
+      // Actualizar la cuadrícula de fotos en el archivo cards-images.js
+      const photoGridContainer = document.getElementById("grid-container");
       photoGridContainer.removeChild(card);
     });
   });
