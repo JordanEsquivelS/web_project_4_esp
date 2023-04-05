@@ -69,7 +69,7 @@ form.addEventListener("submit", agregarNuevaTarjeta);
 function agregarEventoLike() {
   let heartIcons = document.querySelectorAll(".photo-grid__like");
 
-  function toggleHeartIcon() {
+  function cambiarIconoCorazon() {
     if (this.src.includes("/images/corazon_blanco.svg")) {
       this.src = "images/corazon_negro.svg";
     } else {
@@ -78,7 +78,7 @@ function agregarEventoLike() {
   }
 
   heartIcons.forEach(function (heartIcon) {
-    heartIcon.addEventListener("click", toggleHeartIcon);
+    heartIcon.addEventListener("click", cambiarIconoCorazon);
   });
 }
 
