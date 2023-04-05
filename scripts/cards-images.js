@@ -1,3 +1,4 @@
+/* Prettirer hace indentación y espaciado, segun los parametros que se dieron para todos los proyectos de Praticum*/
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -25,20 +26,16 @@ const initialCards = [
   },
 ];
 
-const photoGridContainer = document.getElementById("grid-container");
+const gridContainer = document.getElementById("grid-container");
+const cardTemplate = document.getElementById("card-template");
 
 initialCards.forEach((card) => {
-  const cardHTML = `
-    <div class="photo-grid">
-      <img class="photo-grid__image" src="${card.link}" />
-      <img src="images/delete.svg" alt="imagen de tacho de basura blanco" class="photo-grid__delete">
-      <div class="photo-grid__description">
-        <p class="photo-grid__text">${card.name}</p>
-        <img class="photo-grid__like" src="images/corazon_blanco.svg" alt="icono de like o corazon" />
-      </div>
-    </div>
-  `;
+  const cardElement = cardTemplate.content.cloneNode(true);
+  const cardImage = cardElement.querySelector(".photo-grid__image");
+  const cardText = cardElement.querySelector(".photo-grid__text");
 
-  photoGridContainer.insertAdjacentHTML("beforeend", cardHTML);
+  cardImage.src = card.link;
+  cardText.textContent = card.name;
+
+  gridContainer.appendChild(cardElement);
 });
-
