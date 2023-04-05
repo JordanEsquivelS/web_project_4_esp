@@ -9,16 +9,16 @@ const aboutMe = document.querySelector(".profile-info__about-me");
 const soloLetras = /^[a-zA-Z\s]+$/;
 
 // Mostrar popup y llenar inputs con información actual
-function editarDatos(event) {
+function editarDatosProfile(event) {
   event.preventDefault();
   popup.classList.add("open");
   nameInput.value = nombre.textContent;
   aboutMeInput.value = aboutMe.textContent;
 }
-editButton.addEventListener("click", editarDatos);
+editButton.addEventListener("click", editarDatosProfile);
 
 // Actualizar información y ocultar popup
-function guardarDatos(event) {
+function guardarDatosProfile(event) {
   event.preventDefault(); // previene el comportamiento por defecto del botón submit
   if (nameInput.value.trim() === "" || aboutMeInput.value.trim() === "") {
     Swal.fire({
@@ -39,11 +39,11 @@ function guardarDatos(event) {
   }
 }
 
-saveButton.addEventListener("click", guardarDatos);
+saveButton.addEventListener("click", guardarDatosProfile);
 
 // Cerrar popup sin actualizar información
-function closePopup(event) {
+function closePopupProfile(event) {
   popup.classList.remove("open");
 }
 
-closePopupButton.addEventListener("click", closePopup);
+closePopupButton.addEventListener("click", closePopupProfile);
