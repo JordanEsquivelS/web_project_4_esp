@@ -24,8 +24,14 @@ function agregarNuevaTarjeta() {
   // Obtener los valores de los campos del formulario
   const titulo = form.querySelector("#titulo").value;
   const link = form.querySelector("#form__input-url").value;
+  // Validar el título y el link
   if (!titulo || !link) {
-    alert("Por favor ingrese todos los datos.");
+    Swal.fire({
+      title: "Error!",
+      text: "Por favor ingrese todos los datos.",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
     return false;
   }
 
@@ -92,15 +98,35 @@ function agregarEventoEliminarTarjeta() {
       return tarjeta.id === id;
     });
 
-    // Eliminar la tarjeta del array initialCards
-    let index = initialCards.indexOf(tarjetaAEliminar);
-    if (index !== -1) {
-      initialCards.splice(index, 1);
-    }
+    // Mostrar un diálogo de confirmación antes de eliminar la tarjeta
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Obtener el índice de la tarjeta con el id correspondiente en la variable initialCards
+        let index = initialCards.findIndex(function (tarjeta) {
+          return tarjeta.id === id;
+        });
 
-    // Actualizar la cuadrícula de fotos en el archivo cards-images.js
-    const photoGridContainer = document.getElementById("grid-container");
-    photoGridContainer.removeChild(card);
+        // Eliminar la tarjeta de la variable initialCards
+        if (index !== -1) {
+          initialCards.splice(index, 1);
+        }
+
+        // Eliminar el elemento del DOM
+        card.remove();
+
+        // Mostrar un mensaje de éxito
+        Swal.fire("¡Eliminado!", "La tarjeta ha sido eliminada.", "success");
+      }
+    });
   }
 
   // Agregar un event listener a cada botón "photo-grid__delete"

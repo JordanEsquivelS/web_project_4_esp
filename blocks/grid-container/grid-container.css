@@ -10,14 +10,14 @@
 @media (max-width: 887px) {
   .grid-container {
     grid-template-columns: repeat(2, 282px);
-    grid-template-rows: repeat(3, 361px);
+    grid-template-rows: auto;
     justify-content: center;
   }
 }
 @media (max-width: 640px) {
   .grid-container {
     grid-template-columns: repeat(1, 282px);
-    grid-template-rows: repeat(6, 361px);
+    grid-template-rows: auto;
     justify-content: center;
     margin: 36px auto 0;
   }
