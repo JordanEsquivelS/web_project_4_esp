@@ -20,30 +20,51 @@ cerrarLugar.addEventListener("click", cerrarPopupLugar);
 
 let nextId = 1;
 
-function agregarNuevaTarjeta() {
-  // Obtener los valores de los campos del formulario
-  const titulo = form.querySelector("#titulo").value;
-  const link = form.querySelector("#form__input-url").value;
-  // Validar el título y el link
+function agregarNuevaTarjeta(event) {
+  event.preventDefault();
+  const titulo = obtenerTitulo();
+  const link = obtenerLink();
   if (!titulo || !link) {
-    Swal.fire({
-      title: "Error!",
-      text: "Por favor ingrese todos los datos.",
-      icon: "error",
-      confirmButtonText: "Ok",
-    });
+    mostrarError();
     return false;
   }
+  const id = generarId();
+  agregarTarjeta(initialCards, id, titulo, link);
+  actualizarCuadriculaFotos(id, link, titulo);
+  cerrarVentanaEmergente();
+  resetearFormulario();
+  agregarEventoLike();
+  agregarEventoEliminarTarjeta();
+}
 
-  // Generar un nuevo ID para la tarjeta
+function obtenerTitulo() {
+  return form.querySelector("#titulo").value;
+}
+
+function obtenerLink() {
+  return form.querySelector("#form__input-url").value;
+}
+
+function mostrarError() {
+  Swal.fire({
+    title: "Error!",
+    text: "Por favor ingrese todos los datos.",
+    icon: "error",
+    confirmButtonText: "Ok",
+  });
+}
+
+function generarId() {
   const id = `card-${nextId}`;
   nextId++;
+  return id;
+}
 
-  // Agregar la nueva tarjeta al principio del array initialCards
-  const nuevaTarjeta = { id, name: titulo, link };
-  initialCards.unshift(nuevaTarjeta);
+function agregarTarjeta(tarjetas, id, titulo, link) {
+  tarjetas.unshift({ id, name: titulo, link });
+}
 
-  // Actualizar la cuadrícula de fotos en el archivo cards-images.js
+function actualizarCuadriculaFotos(id, link, titulo) {
   const photoGridContainer = document.getElementById("grid-container");
   const nuevaTarjetaHTML = `
     <div id="${id}" class="photo-grid">
@@ -56,18 +77,14 @@ function agregarNuevaTarjeta() {
     </div>
   `;
   photoGridContainer.insertAdjacentHTML("afterbegin", nuevaTarjetaHTML);
+}
 
-  // Cerrar la ventana emergente
+function cerrarVentanaEmergente() {
   popupNuevoLugar.classList.remove("open");
+}
 
-  // Resetear el formulario
+function resetearFormulario() {
   form.reset();
-
-  // Aplicar el evento de clic a todas las imágenes
-  agregarEventoLike();
-
-  // Aplicar el evento de clic para eliminar tarjeta
-  agregarEventoEliminarTarjeta();
 }
 
 form.addEventListener("submit", agregarNuevaTarjeta);
