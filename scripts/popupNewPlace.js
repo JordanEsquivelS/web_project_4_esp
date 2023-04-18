@@ -1,4 +1,4 @@
-const placeAdd = document.querySelector(".profile__agregar");
+const placeAdd = document.querySelector(".profile__addPlace");
 const popupNewPlace = document.querySelector("#new-place");
 const form = popupNewPlace.querySelector("form");
 
