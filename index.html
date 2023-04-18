@@ -45,7 +45,7 @@
           /></a>
         </div>
 
-        <div class="popup" id="editar-perfil">
+        <div class="popup" id="edit-profile">
           <div class="popup__container">
             <img
               class="popup__container-image"
@@ -75,17 +75,17 @@
                 />
               </div>
               <div>
-                <button class="form__guardar" type="submit">Guardar</button>
+                <button class="form__save" type="submit">Guardar</button>
               </div>
             </form>
           </div>
         </div>
 
-        <div class="popup" id="nuevo-lugar">
+        <div class="popup" id="new-place">
           <div class="popup__container">
             <img
               class="popup__container-image"
-              id="cerrarLugar"
+              id="closePlace"
               src="images/CloseIcon_blanco.svg"
               alt="boton de cerrar"
             />
@@ -95,7 +95,7 @@
                 <input
                   class="form__name"
                   type="text"
-                  id="titulo"
+                  id="titlePlace"
                   placeholder="Titulo"
                   required
                 />
@@ -110,7 +110,7 @@
                 />
               </div>
               <div>
-                <button class="form__guardar" type="submit" id="crear">
+                <button class="form__save" type="submit" id="create">
                   CREAR
                 </button>
               </div>
@@ -144,9 +144,9 @@
             <img
               src="images/CloseIcon_blanco.svg"
               alt="boton de cerrar"
-              class="popImg__cerrar"
+              class="popImg__close"
             />
-            <img src=" " alt=" " class="popImg__imagenGrande" />
+            <img src=" " alt=" " class="popImg__bigImage" />
             <p class="popImg__text"></p>
           </div>
         </div>
@@ -159,7 +159,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="scripts/popupProfile.js"></script>
     <script src="scripts/cards-images.js"></script>
-    <script src="scripts/popupNuevoLugar.js"></script>
-    <script src="scripts/popupImagenGrande.js"></script>
+    <script src="scripts/popupNewPlace.js"></script>
+    <script src="scripts/popupBigImage.js"></script>
   </body>
 </html>

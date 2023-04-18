@@ -1,4 +1,4 @@
-.form__guardar {
+.form__save {
   background-color: #000000;
   color: white;
   width: 358px;
@@ -9,12 +9,12 @@
   cursor: pointer;
   margin-bottom: 37px;
 }
-.form__guardar:hover {
+.form__save:hover {
   opacity: 0.6;
   transition: opacity 0.3s ease-in-out;
 }
 @media (max-width: 555px) {
-  .form__guardar {
+  .form__save {
     border-top-style: hidden;
     border-right-style: hidden;
     border-left-style: hidden;

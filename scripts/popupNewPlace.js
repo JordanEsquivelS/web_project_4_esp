@@ -1,51 +1,51 @@
-const lugarAgregar = document.querySelector(".profile__agregar");
-const popupNuevoLugar = document.querySelector("#nuevo-lugar");
-const form = popupNuevoLugar.querySelector("form");
+const placeAdd = document.querySelector(".profile__agregar");
+const popupNewPlace = document.querySelector("#new-place");
+const form = popupNewPlace.querySelector("form");
 
-function abrirPopupLugar() {
-  popupNuevoLugar.classList.add("open");
+function openPopupPlace() {
+  popupNewPlace.classList.add("open");
 }
 
 // Agregar un evento de click al botón "Agregar"
-lugarAgregar.addEventListener("click", abrirPopupLugar);
+placeAdd.addEventListener("click", openPopupPlace);
 
-function cerrarPopupLugar() {
-  popupNuevoLugar.classList.remove("open");
+function closePopupPlace() {
+  popupNewPlace.classList.remove("open");
   form.reset();
 }
 
 // Agregar un evento de click al botón "Cerrar" dentro de la ventana emergente
-const cerrarLugar = document.querySelector("#cerrarLugar");
-cerrarLugar.addEventListener("click", cerrarPopupLugar);
+const closePlace = document.querySelector("#closePlace");
+closePlace.addEventListener("click", closePopupPlace);
 
 let nextId = 1;
 
-function agregarNuevaTarjeta(event) {
+function addNewCard(event) {
   event.preventDefault();
-  const titulo = obtenerTitulo();
-  const link = obtenerLink();
-  if (!titulo || !link) {
-    mostrarError();
+  const title = getTitle();
+  const link = getLink();
+  if (!title || !link) {
+    showError();
     return false;
   }
-  const id = generarId();
-  agregarTarjeta(initialCards, id, titulo, link);
-  actualizarCuadriculaFotos(id, link, titulo);
-  cerrarVentanaEmergente();
-  resetearFormulario();
-  agregarEventoLike();
-  agregarEventoEliminarTarjeta();
+  const id = generateId();
+  addCard(initialCards, id, title, link);
+  updateGridPhotos(id, link, title);
+  closePopup();
+  resetForm();
+  addEventLike();
+  addEventDeleteCard();
 }
 
-function obtenerTitulo() {
-  return form.querySelector("#titulo").value;
+function getTitle() {
+  return form.querySelector("#titlePlace").value;
 }
 
-function obtenerLink() {
+function getLink() {
   return form.querySelector("#form__input-url").value;
 }
 
-function mostrarError() {
+function showError() {
   Swal.fire({
     title: "Error!",
     text: "Por favor ingrese todos los datos.",
@@ -54,65 +54,59 @@ function mostrarError() {
   });
 }
 
-function generarId() {
+function generateId() {
   const id = `card-${nextId}`;
   nextId++;
   return id;
 }
 
-function agregarTarjeta(tarjetas, id, titulo, link) {
-  tarjetas.unshift({ id, name: titulo, link });
+function addCard(tarjetas, id, title, link) {
+  tarjetas.unshift({ id, name: title, link });
 }
 
-function actualizarCuadriculaFotos(id, link, titulo) {
+function updateGridPhotos(id, link, title) {
   const photoGridContainer = document.getElementById("grid-container");
-  const nuevaTarjetaHTML = `
+  const newCardHTML = `
     <div id="${id}" class="photo-grid">
       <img class="photo-grid__image" src="${link}" />
       <img src="images/delete.svg" alt="imagen de tacho de basura blanco" class="photo-grid__delete">
       <div class="photo-grid__description">
-        <p class="photo-grid__text">${titulo}</p>
+        <p class="photo-grid__text">${title}</p>
         <img class="photo-grid__like" src="images/corazon_blanco.svg" alt="icono de like o corazon" />
       </div>
     </div>
   `;
-  photoGridContainer.insertAdjacentHTML("afterbegin", nuevaTarjetaHTML);
+  photoGridContainer.insertAdjacentHTML("afterbegin", newCardHTML);
 }
 
-function cerrarVentanaEmergente() {
-  popupNuevoLugar.classList.remove("open");
+function closePopup() {
+  popupNewPlace.classList.remove("open");
 }
 
-function resetearFormulario() {
+function resetForm() {
   form.reset();
 }
 
-form.addEventListener("submit", agregarNuevaTarjeta);
+form.addEventListener("submit", addNewCard);
 
-function agregarEventoLike() {
+function addEventLike() {
   let heartIcons = document.querySelectorAll(".photo-grid__like");
 
-  function cambiarIconoCorazon() {
-    if (this.src.includes("/images/corazon_blanco.svg")) {
-      this.src = "images/corazon_negro.svg";
-    } else {
-      this.src = "images/corazon_blanco.svg";
-    }
-  }
-
   heartIcons.forEach(function (heartIcon) {
-    heartIcon.addEventListener("click", cambiarIconoCorazon);
+    heartIcon.addEventListener("click", function (evt) {
+      evt.target.classList.toggle("photo-grid__like_active");
+    });
   });
 }
 
-function agregarEventoEliminarTarjeta() {
-  function eliminarTarjeta() {
+function addEventDeleteCard() {
+  function removeCard() {
     let card = this.parentNode;
     let id = card.getAttribute("id");
 
     // Buscar la tarjeta con el id correspondiente en initialCards
-    let tarjetaAEliminar = initialCards.find(function (tarjeta) {
-      return tarjeta.id === id;
+    let cardToDelete = initialCards.find(function (card) {
+      return card.id === id;
     });
 
     // Mostrar un diálogo de confirmación antes de eliminar la tarjeta
@@ -128,8 +122,8 @@ function agregarEventoEliminarTarjeta() {
     }).then((result) => {
       if (result.isConfirmed) {
         // Obtener el índice de la tarjeta con el id correspondiente en la variable initialCards
-        let index = initialCards.findIndex(function (tarjeta) {
-          return tarjeta.id === id;
+        let index = initialCards.findIndex(function (card) {
+          return card.id === id;
         });
 
         // Eliminar la tarjeta de la variable initialCards
@@ -150,10 +144,10 @@ function agregarEventoEliminarTarjeta() {
   let deleteButtons = document.querySelectorAll(".photo-grid__delete");
 
   deleteButtons.forEach(function (button) {
-    button.addEventListener("click", eliminarTarjeta);
+    button.addEventListener("click", removeCard);
   });
 }
 
 // Llama a la función una vez para aplicar el evento de clic a las imágenes existentes
-agregarEventoLike();
-agregarEventoEliminarTarjeta();
+addEventLike();
+addEventDeleteCard();
