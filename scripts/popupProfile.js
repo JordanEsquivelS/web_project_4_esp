@@ -54,6 +54,12 @@ document.addEventListener("keydown", function (evt) {
   }
 });
 
-popup.addEventListener("click", () => {
-  closePopupProfile();
+// Cerrar popup al hacer clic fuera del formulario
+document.addEventListener("click", function (evt) {
+  if (
+    !evt.target.closest(".popup__container") &&
+    !evt.target.classList.contains("profile-info__edit")
+  ) {
+    closePopupProfile();
+  }
 });

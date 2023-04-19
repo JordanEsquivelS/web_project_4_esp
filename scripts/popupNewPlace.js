@@ -13,15 +13,22 @@ function closePopupPlace() {
   popupNewPlace.classList.remove("open");
   form.reset();
 }
+
 document.addEventListener("keydown", function (evt) {
   if (evt.key === "Escape") {
     closePopupPlace();
   }
 });
 
-popupNewPlace.addEventListener("click", () => {
-  closePopupPlace();
+document.addEventListener("click", function (event) {
+  if (
+    !event.target.closest(".popup__container") &&
+    !event.target.classList.contains("profile__addPlace")
+  ) {
+    closePopupPlace();
+  }
 });
+
 // Agregar un evento de click al botón "Cerrar" dentro de la ventana emergente
 const closePlace = document.querySelector("#closePlace");
 closePlace.addEventListener("click", closePopupPlace);
@@ -39,7 +46,7 @@ function addNewCard(event) {
   const id = generateId();
   addCard(initialCards, id, title, link);
   updateGridPhotos(id, link, title);
-  closePopup();
+  closePopupPlace();
   resetForm();
   addEventLike();
   addEventDeleteCard();
