@@ -8,8 +8,11 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
+  color: #CCCCCC;
 }
-
+.form__input:focus{
+  color: #000000;
+}
 @media (max-width: 555px) {
   .form__input {
     max-width: 238px;

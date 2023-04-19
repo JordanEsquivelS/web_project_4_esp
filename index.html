@@ -52,30 +52,36 @@
               src="images/CloseIcon_blanco.svg"
               alt="boton de cerrar"
             />
-            <form class="form">
+            <form class="form popup__form" novalidate>
               <h2 class="form__title">Editar Perfil</h2>
               <div>
                 <input
-                  class="form__name"
+                  class="form__name popup__input"
                   type="text"
                   id="name"
-                  maxlength="16"
+                  minlength="2"
+                  maxlength="40"
                   placeholder="Nombre"
                   required
                 />
+                <span class="popup__error"></span>
               </div>
               <div>
                 <input
-                  class="form__input"
+                  class="form__input popup__input"
                   type="text"
                   id="form__input-aboutMe"
-                  maxlength="27"
+                  minlength="2"
+                  maxlength="200"
                   placeholder="Acerca de mi"
                   required
                 />
+                <span class="popup__error"></span>
               </div>
               <div>
-                <button class="form__save" type="submit">Guardar</button>
+                <button class="form__save popup__button" type="submit">
+                  Guardar
+                </button>
               </div>
             </form>
           </div>
@@ -89,28 +95,34 @@
               src="images/CloseIcon_blanco.svg"
               alt="boton de cerrar"
             />
-            <form class="form">
+            <form class="form popup__form">
               <h2 class="form__title">Nuevo Lugar</h2>
               <div>
                 <input
-                  class="form__name"
+                  class="form__name popup__input"
                   type="text"
                   id="titlePlace"
                   placeholder="Titulo"
                   required
                 />
+                <span class="popup__error"></span>
               </div>
               <div>
                 <input
-                  class="form__input"
+                  class="form__input popup__input"
                   type="url"
                   id="form__input-url"
                   placeholder="Enlace a la Imagen"
                   required
                 />
+                <span class="popup__error"></span>
               </div>
               <div>
-                <button class="form__save" type="submit" id="create">
+                <button
+                  class="form__save popup__button"
+                  type="submit"
+                  id="create"
+                >
                   CREAR
                 </button>
               </div>
@@ -157,6 +169,7 @@
       </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="scripts/popupProfile.js"></script>
     <script src="scripts/cards-images.js"></script>
     <script src="scripts/popupNewPlace.js"></script>

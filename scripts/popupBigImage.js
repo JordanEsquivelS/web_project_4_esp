@@ -4,19 +4,35 @@ const bigImage = document.querySelector(".popImg__bigImage");
 const textImageLarge = document.querySelector(".popImg__text");
 const closeImage = document.querySelector(".popImg__close");
 
-photoGridContainer.addEventListener("click", (event) => {
+function openPopup(title, src) {
+  bigImage.setAttribute("src", src);
+  textImageLarge.textContent = title;
+  popupImagen.classList.add("open");
+}
+
+function closePopup() {
+  popupImagen.classList.remove("open");
+}
+
+function handleKeyPress(evt) {
+  if (evt.key === "Escape") {
+    closePopup();
+  }
+}
+
+photoGridContainer.addEventListener("click", function (event) {
   if (event.target.classList.contains("photo-grid__image")) {
     const title = event.target
       .closest(".photo-grid")
       .querySelector(".photo-grid__text").textContent;
     const src = event.target.getAttribute("src");
 
-    bigImage.setAttribute("src", src);
-    textImageLarge.textContent = title;
-    popupImagen.classList.add("open");
+    openPopup(title, src);
   }
 });
 
-closeImage.addEventListener("click", () => {
-  popupImagen.classList.remove("open");
-});
+closeImage.addEventListener("click", closePopup);
+
+document.addEventListener("keydown", handleKeyPress);
+
+popupImagen.addEventListener("click", closePopup);

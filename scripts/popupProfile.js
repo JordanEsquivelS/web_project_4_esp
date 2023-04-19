@@ -47,3 +47,13 @@ function closePopupProfile(event) {
 }
 
 closePopupButton.addEventListener("click", closePopupProfile);
+
+document.addEventListener("keydown", function (evt) {
+  if (evt.key === "Escape") {
+    closePopupProfile();
+  }
+});
+
+popup.addEventListener("click", () => {
+  closePopupProfile();
+});

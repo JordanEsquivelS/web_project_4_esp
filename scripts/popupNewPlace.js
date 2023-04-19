@@ -13,7 +13,15 @@ function closePopupPlace() {
   popupNewPlace.classList.remove("open");
   form.reset();
 }
+document.addEventListener("keydown", function (evt) {
+  if (evt.key === "Escape") {
+    closePopupPlace();
+  }
+});
 
+popupNewPlace.addEventListener("click", () => {
+  closePopupPlace();
+});
 // Agregar un evento de click al botón "Cerrar" dentro de la ventana emergente
 const closePlace = document.querySelector("#closePlace");
 closePlace.addEventListener("click", closePopupPlace);
