@@ -1,4 +1,5 @@
 /* Prettirer hace indentación y espaciado, segun los parametros que se dieron para todos los proyectos de Praticum*/
+
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -28,7 +29,9 @@ const initialCards = [
 
 const gridContainer = document.getElementById("grid-container");
 const cardTemplate = document.getElementById("card-template");
-let likeButton = document.querySelectorAll('.cards__card-like-button-container');
+let likeButton = document.querySelectorAll(
+  ".cards__card-like-button-container"
+);
 
 initialCards.forEach((card) => {
   const cardElement = cardTemplate.content.cloneNode(true);
@@ -39,4 +42,12 @@ initialCards.forEach((card) => {
   cardText.textContent = card.name;
 
   gridContainer.appendChild(cardElement);
+});
+
+function likeButtonActive(evt) {
+  evt.target.classList.toggle("photo-grid__like_active");
+}
+
+likeButton.forEach((el) => {
+  el.addEventListener("click", likeButtonActive);
 });

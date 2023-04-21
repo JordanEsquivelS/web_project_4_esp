@@ -10,7 +10,7 @@ import {
 const placeAdd = document.querySelector(".profile__addPlace");
 const popupNewPlace = document.querySelector("#new-place");
 const form = popupNewPlace.querySelector("form");
-
+let likeButton = document.querySelectorAll(".photo-grid__like");
 function openPopupPlace() {
   popupNewPlace.classList.add("open");
   addEventListener("DOMContentLoaded", () => {
@@ -72,7 +72,6 @@ function addNewCard(event) {
   updateGridPhotos(id, link, title);
   closePopupPlace();
   resetForm();
-  addEventLike();
   addEventDeleteCard();
 }
 
@@ -111,11 +110,17 @@ function updateGridPhotos(id, link, title) {
       <img src="images/delete.svg" alt="imagen de tacho de basura blanco" class="photo-grid__delete">
       <div class="photo-grid__description">
         <p class="photo-grid__text">${title}</p>
-        <img class="photo-grid__like" src="images/corazon_blanco.svg" alt="icono de like o corazon" />
+        <div class="photo-grid__like"></div>
       </div>
     </div>
   `;
   photoGridContainer.insertAdjacentHTML("afterbegin", newCardHTML);
+
+  likeButton = document.querySelectorAll(".photo-grid__like");
+
+  likeButton.forEach((el) => {
+    el.addEventListener("click", likeButtonActive);
+  });
 }
 
 function resetForm() {
@@ -124,15 +129,13 @@ function resetForm() {
 
 form.addEventListener("submit", addNewCard);
 
-function addEventLike() {
-  let heartIcons = document.querySelectorAll(".photo-grid__like");
-
-  heartIcons.forEach(function (heartIcon) {
-    heartIcon.addEventListener("click", function (evt) {
-      evt.target.classList.toggle("photo-grid__like_active");
-    });
-  });
+function likeButtonActive(evt) {
+  evt.target.classList.toggle("photo-grid__like_active");
 }
+
+likeButton.forEach((el) => {
+  el.addEventListener("click", likeButtonActive);
+});
 
 function addEventDeleteCard() {
   function removeCard() {
@@ -184,5 +187,4 @@ function addEventDeleteCard() {
 }
 
 // Llama a la función una vez para aplicar el evento de clic a las imágenes existentes
-addEventLike();
 addEventDeleteCard();
