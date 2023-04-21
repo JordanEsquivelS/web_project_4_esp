@@ -52,37 +52,34 @@
               src="images/CloseIcon_blanco.svg"
               alt="boton de cerrar"
             />
-            <form class="form popup__form" novalidate>
+            <form class="popup__form form" novalidate>
               <h2 class="form__title">Editar Perfil</h2>
-              <div>
-                <input
-                  class="form__name popup__input"
-                  type="text"
-                  id="name"
-                  minlength="2"
-                  maxlength="40"
-                  placeholder="Nombre"
-                  required
-                />
-                <span class="popup__error"></span>
-              </div>
-              <div>
-                <input
-                  class="form__input popup__input"
-                  type="text"
-                  id="form__input-aboutMe"
-                  minlength="2"
-                  maxlength="200"
-                  placeholder="Acerca de mi"
-                  required
-                />
-                <span class="popup__error"></span>
-              </div>
-              <div>
-                <button class="form__save popup__button" type="submit">
-                  Guardar
-                </button>
-              </div>
+
+              <input
+                class="popup__input form__name"
+                type="text"
+                id="name"
+                minlength="2"
+                maxlength="40"
+                placeholder="Nombre"
+                required
+              />
+              <span class="popup__error" id="name-error"></span>
+
+              <input
+                class="popup__input form__input"
+                type="text"
+                id="aboutMe"
+                minlength="2"
+                maxlength="200"
+                placeholder="Acerca de mi"
+                required
+              />
+              <span class="popup__error" id="aboutMe-error"></span>
+
+              <button class="form__save popup__button" type="submit">
+                Guardar
+              </button>
             </form>
           </div>
         </div>
@@ -95,37 +92,36 @@
               src="images/CloseIcon_blanco.svg"
               alt="boton de cerrar"
             />
-            <form class="form popup__form">
+            <form class="popup__form form" novalidate>
               <h2 class="form__title">Nuevo Lugar</h2>
-              <div>
-                <input
-                  class="form__name popup__input"
-                  type="text"
-                  id="titlePlace"
-                  placeholder="Titulo"
-                  required
-                />
-                <span class="popup__error"></span>
-              </div>
-              <div>
-                <input
-                  class="form__input popup__input"
-                  type="url"
-                  id="form__input-url"
-                  placeholder="Enlace a la Imagen"
-                  required
-                />
-                <span class="popup__error"></span>
-              </div>
-              <div>
-                <button
-                  class="form__save popup__button"
-                  type="submit"
-                  id="create"
-                >
-                  CREAR
-                </button>
-              </div>
+
+              <input
+                class="popup__input form__name"
+                type="text"
+                id="titlePlace"
+                placeholder="Titulo"
+                minlength="2"
+                maxlength="30"
+                required
+              />
+              <span class="popup__error" id="titlePlace-error"></span>
+
+              <input
+                class="popup__input form__input"
+                type="url"
+                id="input-url"
+                placeholder="Enlace a la Imagen"
+                required
+              />
+              <span class="popup__error" id="input-url-error"></span>
+
+              <button
+                class="popup__button form__save"
+                type="submit"
+                id="create"
+              >
+                CREAR
+              </button>
             </form>
           </div>
         </div>
@@ -141,11 +137,7 @@
               />
               <div class="photo-grid__description">
                 <p class="photo-grid__text"></p>
-                <img
-                  class="photo-grid__like"
-                  src="images/corazon_blanco.svg"
-                  alt="icono de like o corazon"
-                />
+                <div class="photo-grid__like"></div>
               </div>
             </div>
           </template>
@@ -169,11 +161,10 @@
       </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script src="scripts/popupProfile.js"></script>
+    <script type="module" src="scripts/validate.js"></script>
+    <script type="module" src="scripts/popupProfile.js"></script>
     <script src="scripts/cards-images.js"></script>
-    <script src="scripts/popupNewPlace.js"></script>
+    <script type="module" src="scripts/popupNewPlace.js"></script>
     <script src="scripts/popupBigImage.js"></script>
-    <script src="scripts/validate.js"></script>
   </body>
 </html>

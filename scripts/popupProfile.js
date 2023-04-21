@@ -1,9 +1,17 @@
+import {
+  showInputError,
+  hideInputError,
+  checkInputValidity,
+  setEventListeners,
+  enableValidation,
+  resetValidation,
+} from "./validate.js";
 const popup = document.querySelector(".popup");
 const editButton = document.querySelector(".profile-info__edit");
 const closePopupButton = document.querySelector(".popup__container-image");
 const saveButton = document.querySelector(".form__save");
 const nameInput = document.querySelector(".form__name");
-const aboutMeInput = document.querySelector("#form__input-aboutMe");
+const aboutMeInput = document.querySelector("#aboutMe");
 const nameProfile = document.querySelector(".profile-info__nombre");
 const aboutMe = document.querySelector(".profile-info__about-me");
 const onlyLetters = /^[a-zA-Z\s]+$/;
@@ -14,6 +22,20 @@ function editDataProfile(event) {
   popup.classList.add("open");
   nameInput.value = nameProfile.textContent;
   aboutMeInput.value = aboutMe.textContent;
+  addEventListener("DOMContentLoaded", () => {
+    showInputError(formElement, inputElement, errorMessage);
+    hideInputError(formElement, inputElement);
+    checkInputValidity(formElement, inputElement);
+    setEventListeners(formElement);
+    enableValidation({
+      formSelector: ".popup__form",
+      inputSelector: ".popup__input",
+      submitButtonSelector: ".popup__button",
+      inactiveButtonClass: "popup__button_disabled",
+      inputErrorClass: "popup__input_type_error",
+      errorClass: "popup__error_visible",
+    });
+  });
 }
 editButton.addEventListener("click", editDataProfile);
 
@@ -36,6 +58,7 @@ function saveDataProfile(event) {
     nameProfile.textContent = nameInput.value.trim();
     aboutMe.textContent = aboutMeInput.value.trim();
     popup.classList.remove("open");
+    resetValidation(popup);
   }
 }
 
@@ -44,6 +67,7 @@ saveButton.addEventListener("click", saveDataProfile);
 // Cerrar popup sin actualizar información
 function closePopupProfile(event) {
   popup.classList.remove("open");
+  resetValidation(popup);
 }
 
 closePopupButton.addEventListener("click", closePopupProfile);

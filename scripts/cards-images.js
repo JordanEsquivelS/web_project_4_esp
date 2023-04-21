@@ -28,6 +28,7 @@ const initialCards = [
 
 const gridContainer = document.getElementById("grid-container");
 const cardTemplate = document.getElementById("card-template");
+let likeButton = document.querySelectorAll('.cards__card-like-button-container');
 
 initialCards.forEach((card) => {
   const cardElement = cardTemplate.content.cloneNode(true);

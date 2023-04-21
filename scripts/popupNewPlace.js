@@ -1,9 +1,32 @@
+import {
+  showInputError,
+  hideInputError,
+  checkInputValidity,
+  setEventListeners,
+  enableValidation,
+  resetValidation,
+} from "./validate.js";
+
 const placeAdd = document.querySelector(".profile__addPlace");
 const popupNewPlace = document.querySelector("#new-place");
 const form = popupNewPlace.querySelector("form");
 
 function openPopupPlace() {
   popupNewPlace.classList.add("open");
+  addEventListener("DOMContentLoaded", () => {
+    showInputError(formElement, inputElement, errorMessage);
+    hideInputError(formElement, inputElement);
+    checkInputValidity(formElement, inputElement);
+    setEventListeners(formElement);
+    enableValidation({
+      formSelector: ".popup__form",
+      inputSelector: ".popup__input",
+      submitButtonSelector: ".popup__button",
+      inactiveButtonClass: "popup__button_disabled",
+      inputErrorClass: "popup__input_type_error",
+      errorClass: "popup__error_visible",
+    });
+  });
 }
 
 // Agregar un evento de click al botón "Agregar"
@@ -12,6 +35,7 @@ placeAdd.addEventListener("click", openPopupPlace);
 function closePopupPlace() {
   popupNewPlace.classList.remove("open");
   form.reset();
+  resetValidation(popupNewPlace);
 }
 
 document.addEventListener("keydown", function (evt) {
@@ -57,7 +81,7 @@ function getTitle() {
 }
 
 function getLink() {
-  return form.querySelector("#form__input-url").value;
+  return form.querySelector("#input-url").value;
 }
 
 function showError() {
@@ -92,10 +116,6 @@ function updateGridPhotos(id, link, title) {
     </div>
   `;
   photoGridContainer.insertAdjacentHTML("afterbegin", newCardHTML);
-}
-
-function closePopup() {
-  popupNewPlace.classList.remove("open");
 }
 
 function resetForm() {
