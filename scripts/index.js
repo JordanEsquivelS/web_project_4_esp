@@ -345,3 +345,18 @@ closeImage.addEventListener("click", closePopup);
 document.addEventListener("keydown", handleKeyPress);
 
 popupImagen.addEventListener("click", closePopup);
+
+/* footer año */
+
+// Obtener el elemento del pie de página con la clase "footer__copyright"
+const footer = document.querySelector(".footer__copyright");
+
+// Obtener el año actual
+const year = new Date().getFullYear();
+
+// Crear un nodo de texto con el símbolo de copyright
+const symbol = document.createTextNode(String.fromCharCode(169));
+
+// Agregar el símbolo de copyright y el año actual al contenido del elemento
+footer.textContent = ` ${year} Alrededor de los EEUU`;
+footer.prepend(symbol);
