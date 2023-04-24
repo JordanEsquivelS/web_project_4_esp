@@ -7,10 +7,14 @@ import {
   resetValidation,
 } from "./validate.js";
 
+// Importar la variable Swal
+const Swal = window.Sweetalert2;
+
 const placeAdd = document.querySelector(".profile__addPlace");
 const popupNewPlace = document.querySelector("#new-place");
 const form = popupNewPlace.querySelector("form");
-let likeButton = document.querySelectorAll(".photo-grid__like");
+const likeButton = document.querySelectorAll(".photo-grid__like");
+
 function openPopupPlace() {
   popupNewPlace.classList.add("open");
   addEventListener("DOMContentLoaded", () => {
@@ -89,6 +93,7 @@ function showError() {
     text: "Por favor ingrese todos los datos.",
     icon: "error",
     confirmButtonText: "Ok",
+    /* corregido la fuente*/
   });
 }
 

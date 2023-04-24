@@ -29,6 +29,7 @@ Se uso grid en este proyecto para poder organizar las imágenes de alrededor de 
 - Al dar click en las imágenes se abre un popup y se muestra la imagen completa y con su nombre ingresado debajo de ella.
 - Se usa el icono de bote de basura para eliminar las imágenes deseadas.
 - también se implementó el corazón como like.
+- Se agrego validacion a los formularios
 
 **GitHub Pages**
 El proyecto se subió a GitHub Pages, para que se pueda acceder mediante navegador de distintos lados.
