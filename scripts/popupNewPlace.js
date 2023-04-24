@@ -13,7 +13,7 @@ const Swal = window.Sweetalert2;
 const placeAdd = document.querySelector(".profile__addPlace");
 const popupNewPlace = document.querySelector("#new-place");
 const form = popupNewPlace.querySelector("form");
-const likeButton = document.querySelectorAll(".photo-grid__like");
+let likeButton = document.querySelectorAll(".photo-grid__like");
 
 function openPopupPlace() {
   popupNewPlace.classList.add("open");
@@ -93,7 +93,7 @@ function showError() {
     text: "Por favor ingrese todos los datos.",
     icon: "error",
     confirmButtonText: "Ok",
-    /* corregido la fuente*/
+    /* corregido la fuente en swal2-popup.css*/
   });
 }
 
@@ -111,8 +111,8 @@ function updateGridPhotos(id, link, title) {
   const photoGridContainer = document.getElementById("grid-container");
   const newCardHTML = `
     <div id="${id}" class="photo-grid">
-      <img class="photo-grid__image" src="${link}" />
-      <img src="images/delete.svg" alt="imagen de tacho de basura blanco" class="photo-grid__delete">
+    <img class="photo-grid__image" src="${link}" alt="${title}" />
+      <img src="images/delete.svg" alt="imagen de tacho de basura blanco" class="photo-grid__delete"/>
       <div class="photo-grid__description">
         <p class="photo-grid__text">${title}</p>
         <div class="photo-grid__like"></div>

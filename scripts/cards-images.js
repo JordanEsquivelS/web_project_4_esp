@@ -40,7 +40,7 @@ initialCards.forEach((card) => {
 
   cardImage.src = card.link;
   cardText.textContent = card.name;
-
+  cardImage.alt = card.name;
   gridContainer.appendChild(cardElement);
 });
 
