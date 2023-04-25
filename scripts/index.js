@@ -296,6 +296,7 @@ function addEventDeleteCard() {
           photoGrid.remove(); // Eliminar la tarjeta del DOM
           // Eliminar la tarjeta correspondiente de initialCards
           initialCards = initialCards.filter((card) => card.id !== id);
+          Swal.fire("¡Eliminado!", "La tarjeta ha sido eliminada.", "success");
         }
       });
     });
