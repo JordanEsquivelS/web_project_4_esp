@@ -359,5 +359,5 @@ const year = new Date().getFullYear();
 const symbol = document.createTextNode(String.fromCharCode(169));
 
 // Agregar el símbolo de copyright y el año actual al contenido del elemento
-footer.textContent = ` ${year} Alrededor de los EEUU`;
+footer.textContent = ` ${year} Jordan Esquivel Silva `;
 footer.prepend(symbol);

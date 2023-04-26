@@ -25,10 +25,9 @@ Se uso grid en este proyecto para poder organizar las imágenes de alrededor de 
 **JavaScript**
 
 - Se uso JavaScript para dar la funcionalidad de abrir un formulario flotante al dar click en editar, y guardar los cambios al dar click en Guardar.
-- también se agregó la funcionalidad de agregar nuevas imágenes según el link ingresado con insertAdjacentHTML que es más seguro y actual comparado con innerhtml.
 - Al dar click en las imágenes se abre un popup y se muestra la imagen completa y con su nombre ingresado debajo de ella.
 - Se usa el icono de bote de basura para eliminar las imágenes deseadas.
-- también se implementó el corazón como like.
+- También se implementó el corazón como like.
 - Se agrego validacion a los formularios
 
 **GitHub Pages**
