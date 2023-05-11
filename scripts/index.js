@@ -1,14 +1,6 @@
-import {
-  showInputError,
-  hideInputError,
-  checkInputValidity,
-  setEventListeners,
-  enableValidation,
-  resetValidation,
-} from "./validate.js";
-
+import FormValidator from "./FormValidator.js";
+import Card from "./Card.js";
 /* cards-images */
-/* declare let a  initialCards porque en consola la linea 298 asi: Uncaught (in promise) TypeError: Assignment to constant variable*/
 let initialCards = [
   {
     id: "card-0",
@@ -43,17 +35,10 @@ let initialCards = [
 ];
 
 const gridContainer = document.getElementById("grid-container");
-const cardTemplate = document.getElementById("card-template");
 
-initialCards.forEach((card) => {
-  const cardElement = cardTemplate.content.cloneNode(true);
-  const cardImage = cardElement.querySelector(".photo-grid__image");
-  const cardText = cardElement.querySelector(".photo-grid__text");
-
-  cardImage.src = card.link;
-  cardText.textContent = card.name;
-  cardImage.alt = card.name;
-  gridContainer.appendChild(cardElement);
+initialCards.forEach((cardData) => {
+  const card = new Card(cardData, "#card-template").createCard();
+  gridContainer.appendChild(card);
 });
 
 /*popupProfile */
@@ -67,27 +52,29 @@ const nameProfile = document.querySelector(".profile-info__nombre");
 const aboutMe = document.querySelector(".profile-info__about-me");
 const onlyLetters = /^[a-zA-Z\s]+$/;
 
+const formValidatorConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+const formValidator = new FormValidator(
+  formValidatorConfig,
+  popup.querySelector(".popup__form")
+);
+formValidator.enableValidation();
+
 // Mostrar popup y llenar inputs con información actual
 function editDataProfile(event) {
   event.preventDefault();
   popup.classList.add("open");
   nameInput.value = nameProfile.textContent;
   aboutMeInput.value = aboutMe.textContent;
-  addEventListener("DOMContentLoaded", () => {
-    showInputError(formElement, inputElement, errorMessage);
-    hideInputError(formElement, inputElement);
-    checkInputValidity(formElement, inputElement);
-    setEventListeners(formElement);
-    enableValidation({
-      formSelector: ".popup__form",
-      inputSelector: ".popup__input",
-      submitButtonSelector: ".popup__button",
-      inactiveButtonClass: "popup__button_disabled",
-      inputErrorClass: "popup__input_type_error",
-      errorClass: "popup__error_visible",
-    });
-  });
 }
+
 editButton.addEventListener("click", editDataProfile);
 
 // Actualizar información y ocultar popup
@@ -109,7 +96,8 @@ function saveDataProfile(event) {
     nameProfile.textContent = nameInput.value.trim();
     aboutMe.textContent = aboutMeInput.value.trim();
     popup.classList.remove("open");
-    resetValidation(popup);
+    nameInput.classList.remove("focus"); // eliminar la clase focus
+    formValidator.resetValidation(); // Reiniciar la validación del formulario
   }
 }
 
@@ -118,7 +106,8 @@ saveButton.addEventListener("click", saveDataProfile);
 // Cerrar popup sin actualizar información
 function closePopupProfile(event) {
   popup.classList.remove("open");
-  resetValidation(popup);
+  nameInput.classList.remove("focus"); // eliminar la clase focus
+  formValidator.resetValidation(); // Reiniciar la validación del formulario
 }
 
 closePopupButton.addEventListener("click", closePopupProfile);
@@ -138,8 +127,6 @@ document.addEventListener("click", function (evt) {
     closePopupProfile();
   }
 });
-
-// Importar la variable Swal
 const Swal = window.Sweetalert2;
 
 const placeAdd = document.querySelector(".profile__addPlace");
@@ -149,20 +136,16 @@ let likeButton = document.querySelectorAll(".photo-grid__like");
 
 function openPopupPlace() {
   popupNewPlace.classList.add("open");
-  addEventListener("DOMContentLoaded", () => {
-    showInputError(formElement, inputElement, errorMessage);
-    hideInputError(formElement, inputElement);
-    checkInputValidity(formElement, inputElement);
-    setEventListeners(formElement);
-    enableValidation({
-      formSelector: ".popup__form",
-      inputSelector: ".popup__input",
-      submitButtonSelector: ".popup__button",
-      inactiveButtonClass: "popup__button_disabled",
-      inputErrorClass: "popup__input_type_error",
-      errorClass: "popup__error_visible",
-    });
-  });
+  const formValidatorConfig = {
+    formSelector: ".popup__form",
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__button",
+    inactiveButtonClass: "popup__button_disabled",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__error_visible",
+  };
+  const formValidator = new FormValidator(formValidatorConfig, form);
+  formValidator.enableValidation();
 }
 
 // Agregar un evento de click al botón "Agregar"
@@ -170,8 +153,7 @@ placeAdd.addEventListener("click", openPopupPlace);
 
 function closePopupPlace() {
   popupNewPlace.classList.remove("open");
-  form.reset();
-  resetValidation(popupNewPlace);
+  formValidator.resetValidation();
 }
 
 document.addEventListener("keydown", function (evt) {
@@ -240,26 +222,12 @@ function addCard(tarjetas, id, title, link) {
 }
 
 function updateGridPhotos(id, link, title) {
-  const template = document.querySelector("#card-template");
-  const clone = template.content.cloneNode(true);
-  const photoGrid = clone.querySelector(".photo-grid");
-  const image = clone.querySelector(".photo-grid__image");
-  const text = clone.querySelector(".photo-grid__text");
-
-  photoGrid.id = id; // Asignar un ID único a la tarjeta de foto
-  photoGrid.setAttribute("data-id", id); // agregar atributo data-id al elemento .photo-grid
-  image.src = link;
-  image.alt = title; // Asignar el título de la imagen al atributo alt de la imagen de la tarjeta de foto
-  text.textContent = title;
-
   const photoGridContainer = document.getElementById("grid-container");
-  photoGridContainer.insertBefore(clone, photoGridContainer.firstChild);
-
-  likeButton = document.querySelectorAll(".photo-grid__like");
-
-  likeButton.forEach((el) => {
-    el.addEventListener("click", likeButtonActive);
-  });
+  const newCard = new Card({ id, name: title, link }, "#card-template");
+  photoGridContainer.insertBefore(
+    newCard.createCard(),
+    photoGridContainer.firstChild
+  );
 }
 
 function resetForm() {
@@ -267,14 +235,6 @@ function resetForm() {
 }
 
 form.addEventListener("submit", addNewCard);
-
-function likeButtonActive(evt) {
-  evt.target.classList.toggle("photo-grid__like_active");
-}
-
-likeButton.forEach((el) => {
-  el.addEventListener("click", likeButtonActive);
-});
 
 function addEventDeleteCard() {
   const deleteButtons = document.querySelectorAll(".photo-grid__delete");
