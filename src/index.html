@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="pages/index.css" />
 
     <title>Around the USA</title>
   </head>
@@ -14,7 +13,7 @@
         <div class="header header__logo">
           <img
             class="header__logo header__logo_image"
-            src="images/logo.svg"
+            src="<%=require('./images/logo.svg')%>"
             alt="Logo Arount"
           />
         </div>
@@ -24,7 +23,7 @@
         <div class="profile">
           <img
             class="profile__image"
-            src="images/Jordan.jpg"
+            src="<%=require('./images/Jordan.jpg')%>"
             alt="Jordan Esquivel, estudiante de programacion web de Practicum"
           />
           <div class="profile-info">
@@ -33,7 +32,7 @@
             <a href="#">
               <img
                 class="profile-info__edit"
-                src="images/Edit_Button.svg"
+                src="<%=require('./images/Edit_Button.svg')%>"
                 alt="boton de editar"
               />
             </a>
@@ -41,7 +40,7 @@
           <a href="#" class="profile__addPlace"
             ><img
               class="profile__add-image"
-              src="images/adicion.svg"
+              src="<%=require('./images/adicion.svg')%>"
               alt="boton de agregado"
           /></a>
         </div>
@@ -50,7 +49,7 @@
           <div class="popup__container">
             <img
               class="popup__container-image"
-              src="images/CloseIcon_blanco.svg"
+              src="<%=require('./images/CloseIcon_blanco.svg')%>"
               alt="boton de cerrar"
             />
             <form class="popup__form form" novalidate>
@@ -90,7 +89,7 @@
             <img
               class="popup__container-image"
               id="closePlace"
-              src="images/CloseIcon_blanco.svg"
+              src="<%=require('./images/CloseIcon_blanco.svg')%>"
               alt="boton de cerrar"
             />
             <form class="popup__form form" novalidate>
@@ -132,9 +131,9 @@
             <div class="photo-grid">
               <img class="photo-grid__image" src=" " alt=" " />
               <img
-                src="images/delete.svg"
                 alt="imagen de tacho de basura blanco"
                 class="photo-grid__delete"
+                src="<%=require('./images/delete.svg')%>"
               />
               <div class="photo-grid__description">
                 <p class="photo-grid__text"></p>
@@ -147,9 +146,9 @@
         <div class="popImg">
           <div class="popImg__container">
             <img
-              src="images/CloseIcon_blanco.svg"
               alt="boton de cerrar"
               class="popImg__close"
+              src="<%=require('./images/CloseIcon_blanco.svg')%>"
             />
             <img src=" " alt=" " class="popImg__bigImage" />
             <p class="popImg__text"></p>
@@ -162,10 +161,5 @@
       </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script type="module" src="scripts/FormValidator.js"></script>
-    <script type="module" src="scripts/Card.js"></script>
-    <script type="module" src="scripts/index.js"></script>
-    <script type="module" src="scripts/utils.js"></script>
   </body>
 </html>
