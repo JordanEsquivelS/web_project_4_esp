@@ -1,5 +1,5 @@
 const Swal = window.Sweetalert2;
-let initialCards = [
+const initialCards = [
   {
     id: "card-0",
     name: "Valle de Yosemite",
@@ -31,27 +31,6 @@ let initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
   },
 ];
-
-function handleCardClick(name, link) {
-  const popup = new PopupWithImage(".popImg");
-  popup.open(link, name);
-  const overlay = document.querySelector(".popup__form");
-  const popupCloseButton = document.querySelector(
-    ".images-popup__item-close-button"
-  );
-
-  popupCloseButton.addEventListener("click", () => {
-    popup.close();
-  });
-
-  document.addEventListener("keydown", (evt) => {
-    popup._handleEscClose(evt);
-  });
-
-  overlay.addEventListener("click", () => {
-    popup.close();
-  });
-}
 
 class Card {
   constructor(data, handleCardClick) {
