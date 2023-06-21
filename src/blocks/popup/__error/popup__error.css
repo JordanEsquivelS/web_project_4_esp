@@ -8,3 +8,8 @@
   margin: 0;
   width: 358px;
 }
+@media (max-width: 555px) {
+  .popup__error {
+    width: 238px;
+  }
+}
