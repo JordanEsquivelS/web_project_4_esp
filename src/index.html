@@ -21,11 +21,21 @@
       </header>
       <main class="content">
         <div class="profile">
-          <img
-            class="profile__image"
-            src="<%=require('./images/Jordan.jpg')%>"
-            alt="Jordan Esquivel, estudiante de programacion web de Practicum"
-          />
+          <div class="profile__conteinerImg">
+            <img
+              class="profile__image"
+              src="<%=require('./images/Jordan.jpg')%>"
+              alt="Jordan Esquivel, estudiante de programacion web de Practicum"
+            />
+            <a class="profile__overlayImg" href="#">
+              <img
+                class="profile__editImg"
+                src="<%=require('./images/edit_img_profile.svg')%>"
+                alt="lapiz de edicion de foto perfil"
+              />
+            </a>
+          </div>
+
           <div class="profile-info">
             <h1 class="profile-info__nombre">Jordan Esquivel Silva</h1>
             <h2 class="profile-info__about-me">Programador Jr.</h2>
@@ -137,7 +147,10 @@
               />
               <div class="photo-grid__description">
                 <p class="photo-grid__text"></p>
-                <div class="photo-grid__like"></div>
+                <div class="photo-grid__likesConteiner">
+                  <div class="photo-grid__like"></div>
+                  <p class="photo-grid__likeCounter">2</p>
+                </div>
               </div>
             </div>
           </template>
