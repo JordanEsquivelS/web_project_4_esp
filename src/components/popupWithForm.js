@@ -30,7 +30,10 @@ class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.reset(); // Resetear el formulario al cerrar el popup
-    this._formValidator.resetValidation(); // Resetear la validación del formulario
+    // Verificar si el formulario tiene un validador antes de llamar a resetValidation
+    if (this._formValidator) {
+      this._formValidator.resetValidation(); // Resetear la validación del formulario
+    }
   }
 }
 

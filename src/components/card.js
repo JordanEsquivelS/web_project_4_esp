@@ -1,4 +1,4 @@
-const Swal = window.Sweetalert2;
+import Popup from "./popup.js";
 const initialCards = [
   {
     id: "card-0",
@@ -34,9 +34,11 @@ const initialCards = [
 
 class Card {
   constructor(data, handleCardClick) {
+    this.id = data.id;
     this.name = data.name;
     this.link = data.link;
     this._handleCardClick = handleCardClick;
+    this._deleteConfirmationPopup = new Popup("#deleteCard"); // Instancia de Popup para el popup deleteCard
   }
 
   _getTemplate() {
@@ -62,24 +64,27 @@ class Card {
 
   _configureDeleteEvent(cardElement) {
     const deleteButton = cardElement.querySelector(".photo-grid__delete");
-    deleteButton.addEventListener("click", (evt) => {
-      const photoGrid = evt.target.closest(".photo-grid");
+    deleteButton.addEventListener("click", () => {
+      this._openDeletePopup(cardElement);
+    });
+  }
 
-      Swal.fire({
-        title: "¿Estás seguro?",
-        text: "Esta acción no se puede deshacer",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, eliminar",
-        cancelButtonText: "Cancelar",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this._deleteCard(photoGrid);
-          Swal.fire("¡Eliminado!", "La tarjeta ha sido eliminada.", "success");
-        }
-      });
+  _openDeletePopup(cardElement) {
+    this._deleteConfirmationPopup.open(); // Abrir el popup deleteCard
+
+    const confirmationButton = this._deleteConfirmationPopup._popup.querySelector(
+      "#btnConfirmationDelete"
+    );
+    confirmationButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      this._deleteCard(cardElement);
+      this._closeDeletePopup();
+    });
+
+    // Configurar evento de cierre del popup cuando se hace clic en el botón de cerrar
+    const closeButton = this._deleteConfirmationPopup._popup.querySelector(".popup__container-image");
+    closeButton.addEventListener("click", () => {
+      this._closeDeletePopup();
     });
   }
 
@@ -90,6 +95,10 @@ class Card {
       detail: { cardId: this.id },
     });
     document.dispatchEvent(deleteEvent);
+  }
+
+  _closeDeletePopup() {
+    this._deleteConfirmationPopup.close(); // Cerrar el popup deleteCard
   }
 
   createCard() {

@@ -24,6 +24,7 @@
           <div class="profile__conteinerImg">
             <img
               class="profile__image"
+              id="profileImage"
               src="<%=require('./images/Jordan.jpg')%>"
               alt="Jordan Esquivel, estudiante de programacion web de Practicum"
             />
@@ -87,7 +88,11 @@
               />
               <span class="popup__error" id="aboutMe-error"></span>
 
-              <button class="form__save popup__button" type="submit">
+              <button
+                class="form__save popup__button"
+                type="submit"
+                id="submit_editProfile"
+              >
                 Guardar
               </button>
             </form>
@@ -136,6 +141,36 @@
           </div>
         </div>
 
+        <div class="popup" id="edit-ImgProfile">
+          <div class="popup__container">
+            <img
+              class="popup__container-image"
+              src="<%=require('./images/CloseIcon_blanco.svg')%>"
+              alt="boton de cerrar"
+            />
+            <form class="popup__form form" novalidate>
+              <h2 class="form__title">Cambiar foto de perfil</h2>
+
+              <input
+                class="popup__input form__input"
+                type="url"
+                id="input-url"
+                placeholder="Enlace a la Imagen de perfil"
+                required
+              />
+              <span class="popup__error" id="input-url-error"></span>
+
+              <button
+                class="popup__button form__save"
+                type="submit"
+                id="submit_imgProfile"
+              >
+                CREAR
+              </button>
+            </form>
+          </div>
+        </div>
+
         <div class="grid-container" id="grid-container">
           <template id="card-template">
             <div class="photo-grid">
@@ -149,11 +184,32 @@
                 <p class="photo-grid__text"></p>
                 <div class="photo-grid__likesConteiner">
                   <div class="photo-grid__like"></div>
-                  <p class="photo-grid__likeCounter">2</p>
+                  <p class="photo-grid__likeCounter">0</p>
                 </div>
               </div>
             </div>
           </template>
+        </div>
+
+        <div class="popup" id="deleteCard">
+          <div class="popup__container">
+            <img
+              class="popup__container-image"
+              src="<%=require('./images/CloseIcon_blanco.svg')%>"
+              alt="boton de cerrar"
+            />
+            <form class="popup__form form" novalidate>
+              <h2 class="form__title">¿Estás seguro?</h2>
+
+              <button
+                class="popup__button form__save"
+                type="submit"
+                id="btnConfirmationDelete"
+              >
+                SI
+              </button>
+            </form>
+          </div>
         </div>
 
         <div class="popImg">

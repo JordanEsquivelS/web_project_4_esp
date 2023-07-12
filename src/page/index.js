@@ -9,8 +9,8 @@ import PopupWithImage from "../components/popupWithImage.js";
 // Obtener referencias a los elementos del DOM
 const editButton = document.querySelector(".profile-info__edit");
 const addButton = document.querySelector(".profile__addPlace");
-const formElement = document.querySelector(".popup__form");
 const closeImageButton = document.querySelector(".popImg__close");
+const imgProfileEdit = document.querySelector(".profile__overlayImg");
 
 // Crear una instancia de PopupWithImage fuera de las funciones
 const popupImage = new PopupWithImage(".popImg");
@@ -33,6 +33,7 @@ const formValidatorOptions = {
   inputDefaultClass: "popup__input_type_default",
 };
 
+const formElement = document.querySelector(".popup__form");
 const formValidator = new FormValidator(formValidatorOptions, formElement);
 formValidator.enableValidation();
 
@@ -42,6 +43,15 @@ const newPlaceFormValidator = new FormValidator(
   newPlaceFormElement
 );
 newPlaceFormValidator.enableValidation();
+
+const editProfileElement = document.querySelector(
+  "#edit-ImgProfile .popup__form"
+);
+const editProfileFormValidator = new FormValidator(
+  formValidatorOptions,
+  editProfileElement
+);
+editProfileFormValidator.enableValidation();
 
 // Configurar la sección de tarjetas
 const sectionOptions = {
@@ -67,9 +77,15 @@ const newPlaceForm = new PopupWithForm(
   submitNewPlaceCallback,
   newPlaceFormValidator
 );
+const editProfileForm = new PopupWithForm(
+  "#edit-ImgProfile",
+  submitFormCallback,
+  editProfileFormValidator
+);
 
 popupForm.setEventListeners();
 newPlaceForm.setEventListeners();
+editProfileForm.setEventListeners();
 
 editButton.addEventListener("click", () => {
   userInfo.setUserInfo();
@@ -79,6 +95,26 @@ editButton.addEventListener("click", () => {
 addButton.addEventListener("click", () => {
   popupForm.close();
   newPlaceForm.open();
+});
+
+imgProfileEdit.addEventListener("click", () => {
+  editProfileForm.open();
+});
+
+// Dentro del evento submit del formulario edit-ImgProfile
+editProfileElement.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  // Obtén el valor del campo input-url
+  const inputUrl = editProfileElement.querySelector("#input-url").value;
+
+  // Actualiza la imagen de perfil si se ha ingresado una URL
+  if (inputUrl) {
+    const profileImage = document.querySelector("#profileImage");
+    profileImage.src = inputUrl;
+  }
+
+  editProfileForm.close();
 });
 
 // Configurar la información del usuario
@@ -120,7 +156,6 @@ function submitNewPlaceCallback() {
   newPlaceForm.close();
 }
 
-// Cerrar formularios al hacer clic fuera de ellos
 document.addEventListener("click", (event) => {
   if (
     event.target.classList.contains("popup") ||
@@ -128,6 +163,11 @@ document.addEventListener("click", (event) => {
   ) {
     popupForm.close();
     newPlaceForm.close();
+    editProfileForm.close();
+    const deleteConfirmationPopup = document.querySelector("#deleteCard");
+    if (deleteConfirmationPopup) {
+      deleteConfirmationPopup.classList.remove("open");
+    }
   }
 });
 

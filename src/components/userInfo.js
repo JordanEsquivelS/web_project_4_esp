@@ -1,4 +1,5 @@
 /*UserInfo.js */
+const Swal = window.Sweetalert2;
 class UserInfo {
   constructor(
     nameSelector,
