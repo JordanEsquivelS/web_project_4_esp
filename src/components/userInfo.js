@@ -1,4 +1,5 @@
 /*UserInfo.js */
+import apiInstance from "../components/api.js";
 const Swal = window.Sweetalert2;
 class UserInfo {
   constructor(
@@ -19,9 +20,12 @@ class UserInfo {
     this.setEventListeners();
   }
 
-  setUserInfo() {
-    this._nameInput.value = this._nameElement.textContent;
-    this._professionInput.value = this._professionElement.textContent;
+  setUserInfo(name, about) {
+    this._nameElement.textContent = name;
+    this._professionElement.textContent = about;
+    this._nameInput.value = name;
+    this._professionInput.value = about;
+    console.log("Datos del usuario establecidos:", name, about);
   }
 
   getUserInfo() {
@@ -39,6 +43,16 @@ class UserInfo {
 
     this._nameElement.textContent = name;
     this._professionElement.textContent = profession;
+    // Ejecutar la solicitud PATCH utilizando la instancia de Api
+    apiInstance
+      .editUserInfo(name, profession, "users/me")
+      .then((result) => {
+        console.log("Datos guardados en el servidor:", result);
+      })
+      .catch((error) => {
+        console.log("Error al guardar los datos:", error);
+      });
+
     this.closeForm();
   }
 
@@ -50,7 +64,6 @@ class UserInfo {
 
   setEventListeners() {
     this._submitButton.addEventListener("click", (evt) => {
-      evt.preventDefault();
       this.getUserInfo();
       this.closeForm();
     });

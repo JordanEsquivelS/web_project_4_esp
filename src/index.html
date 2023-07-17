@@ -25,7 +25,7 @@
             <img
               class="profile__image"
               id="profileImage"
-              src="<%=require('./images/Jordan.jpg')%>"
+              src=" "
               alt="Jordan Esquivel, estudiante de programacion web de Practicum"
             />
             <a class="profile__overlayImg" href="#">
@@ -38,8 +38,8 @@
           </div>
 
           <div class="profile-info">
-            <h1 class="profile-info__nombre">Jordan Esquivel Silva</h1>
-            <h2 class="profile-info__about-me">Programador Jr.</h2>
+            <h1 class="profile-info__nombre"></h1>
+            <h2 class="profile-info__about-me"></h2>
             <a href="#">
               <img
                 class="profile-info__edit"
@@ -54,6 +54,35 @@
               src="<%=require('./images/adicion.svg')%>"
               alt="boton de agregado"
           /></a>
+        </div>
+        <div class="popup" id="edit-ImgProfile">
+          <div class="popup__container">
+            <img
+              class="popup__container-image"
+              src="<%=require('./images/CloseIcon_blanco.svg')%>"
+              alt="boton de cerrar"
+            />
+            <form class="popup__form form" novalidate>
+              <h2 class="form__title">Cambiar foto de perfil</h2>
+
+              <input
+                class="popup__input form__input"
+                type="url"
+                id="input-urlImg"
+                placeholder="Enlace a la Imagen de perfil"
+                required
+              />
+              <span class="popup__error" id="input-urlImg-error"></span>
+
+              <button
+                class="popup__button form__save"
+                type="submit"
+                id="submit_imgProfile"
+              >
+                CREAR
+              </button>
+            </form>
+          </div>
         </div>
 
         <div class="popup" id="edit-profile">
@@ -134,36 +163,6 @@
                 class="popup__button form__save"
                 type="submit"
                 id="create"
-              >
-                CREAR
-              </button>
-            </form>
-          </div>
-        </div>
-
-        <div class="popup" id="edit-ImgProfile">
-          <div class="popup__container">
-            <img
-              class="popup__container-image"
-              src="<%=require('./images/CloseIcon_blanco.svg')%>"
-              alt="boton de cerrar"
-            />
-            <form class="popup__form form" novalidate>
-              <h2 class="form__title">Cambiar foto de perfil</h2>
-
-              <input
-                class="popup__input form__input"
-                type="url"
-                id="input-url"
-                placeholder="Enlace a la Imagen de perfil"
-                required
-              />
-              <span class="popup__error" id="input-url-error"></span>
-
-              <button
-                class="popup__button form__save"
-                type="submit"
-                id="submit_imgProfile"
               >
                 CREAR
               </button>

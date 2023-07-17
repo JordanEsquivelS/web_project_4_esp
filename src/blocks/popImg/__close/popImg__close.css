@@ -6,6 +6,10 @@
   right: -45px;
   top: -50px;
 }
+.popImg__close:hover {
+  opacity: 0.4;
+  transition: opacity 0.3s ease-in-out;
+}
 @media (max-width: 730px) {
   .popImg__close {
     max-width: 30px;

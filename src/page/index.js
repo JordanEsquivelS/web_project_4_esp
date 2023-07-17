@@ -4,7 +4,9 @@ import Section from "../components/section.js";
 import Card, { initialCards } from "../components/card.js";
 import PopupWithForm from "../components/popupWithForm.js";
 import UserInfo from "../components/userInfo.js";
+import UserPicture from "../components/userPicture.js";
 import PopupWithImage from "../components/popupWithImage.js";
+import apiInstance from "../components/api";
 
 // Obtener referencias a los elementos del DOM
 const editButton = document.querySelector(".profile-info__edit");
@@ -33,9 +35,13 @@ const formValidatorOptions = {
   inputDefaultClass: "popup__input_type_default",
 };
 
-const formElement = document.querySelector(".popup__form");
-const formValidator = new FormValidator(formValidatorOptions, formElement);
-formValidator.enableValidation();
+const imgFormElement = document.querySelector("#edit-ImgProfile .popup__form");
+const imgValidator = new FormValidator(formValidatorOptions, imgFormElement);
+imgValidator.enableValidation();
+
+const formElement = document.querySelector("#edit-profile .popup__form");
+const formuValidator = new FormValidator(formValidatorOptions, formElement);
+formuValidator.enableValidation();
 
 const newPlaceFormElement = document.querySelector("#new-place .popup__form");
 const newPlaceFormValidator = new FormValidator(
@@ -43,15 +49,6 @@ const newPlaceFormValidator = new FormValidator(
   newPlaceFormElement
 );
 newPlaceFormValidator.enableValidation();
-
-const editProfileElement = document.querySelector(
-  "#edit-ImgProfile .popup__form"
-);
-const editProfileFormValidator = new FormValidator(
-  formValidatorOptions,
-  editProfileElement
-);
-editProfileFormValidator.enableValidation();
 
 // Configurar la sección de tarjetas
 const sectionOptions = {
@@ -67,28 +64,31 @@ const section = new Section(sectionOptions, "#grid-container");
 section.render();
 
 // Configurar el cuadro emergente de formulario
+const editImgForm = new PopupWithForm(
+  "#edit-ImgProfile",
+  submitImgCallback,
+  imgValidator
+);
+
 const popupForm = new PopupWithForm(
   "#edit-profile",
   submitFormCallback,
-  formValidator
+  formuValidator
 );
 const newPlaceForm = new PopupWithForm(
   "#new-place",
   submitNewPlaceCallback,
   newPlaceFormValidator
 );
-const editProfileForm = new PopupWithForm(
-  "#edit-ImgProfile",
-  submitFormCallback,
-  editProfileFormValidator
-);
 
 popupForm.setEventListeners();
 newPlaceForm.setEventListeners();
-editProfileForm.setEventListeners();
+editImgForm.setEventListeners();
 
 editButton.addEventListener("click", () => {
-  userInfo.setUserInfo();
+  const name = userInfo._nameElement.textContent;
+  const about = userInfo._professionElement.textContent;
+  userInfo.setUserInfo(name, about);
   popupForm.open();
 });
 
@@ -98,23 +98,7 @@ addButton.addEventListener("click", () => {
 });
 
 imgProfileEdit.addEventListener("click", () => {
-  editProfileForm.open();
-});
-
-// Dentro del evento submit del formulario edit-ImgProfile
-editProfileElement.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  // Obtén el valor del campo input-url
-  const inputUrl = editProfileElement.querySelector("#input-url").value;
-
-  // Actualiza la imagen de perfil si se ha ingresado una URL
-  if (inputUrl) {
-    const profileImage = document.querySelector("#profileImage");
-    profileImage.src = inputUrl;
-  }
-
-  editProfileForm.close();
+  editImgForm.open();
 });
 
 // Configurar la información del usuario
@@ -123,12 +107,41 @@ const userInfo = new UserInfo(
   ".profile-info__about-me",
   "#name",
   "#aboutMe",
-  ".popup__button",
-  formValidator
+  "#submit_editProfile",
+  formuValidator
+);
+// Crear una instancia de UserPicture y configurarla
+const userPictureInstance = new UserPicture(
+  "#profileImage",
+  "#input-urlImg",
+  "#submit_imgProfile",
+  imgValidator
 );
 
+apiInstance
+  .getUserInfo("users/me")
+  .then((data) => {
+    const { name, about, avatar } = data;
+    userInfo.setUserInfo(name, about);
+    console.log(avatar); // Agregar esta línea para verificar el valor de la URL de la imagen
+    const profileImage = document.querySelector("#profileImage");
+    profileImage.src = avatar;
+  })
+  .catch((error) => {
+    console.log("Error al obtener la información del usuario:", error);
+  });
+
 // Función de devolución de llamada para enviar el formulario de edición
-function submitFormCallback() {
+function submitFormCallback(event) {
+  event.preventDefault();
+
+  const nameInput = document.querySelector("#name").value;
+  const aboutMeInput = document.querySelector("#aboutMe").value;
+
+  console.log("Valor de nameInput:", nameInput);
+  console.log("Valor de aboutMeInput:", aboutMeInput);
+
+  userInfo.setUserInfo(nameInput, aboutMeInput);
   popupForm.close();
 }
 
@@ -155,6 +168,16 @@ function submitNewPlaceCallback() {
 
   newPlaceForm.close();
 }
+// Función de devolución de llamada para enviar el formulario de imagen
+function submitImgCallback(event) {
+  event.preventDefault();
+  const inputUrl = document.querySelector("#input-urlImg").value;
+  console.log("Valor de urlInput:", inputUrl);
+
+  userPictureInstance.setUserPicture(inputUrl);
+
+  editImgForm.close();
+}
 
 document.addEventListener("click", (event) => {
   if (
@@ -163,7 +186,7 @@ document.addEventListener("click", (event) => {
   ) {
     popupForm.close();
     newPlaceForm.close();
-    editProfileForm.close();
+    editImgForm.close();
     const deleteConfirmationPopup = document.querySelector("#deleteCard");
     if (deleteConfirmationPopup) {
       deleteConfirmationPopup.classList.remove("open");
