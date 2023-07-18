@@ -61,6 +61,25 @@ class Api {
       }
     );
   }
+
+  getInitialCards(endPoint) {
+    return this.fetchData(`${this.options}/${endPoint}`).then((result) => {
+      return result;
+    });
+  }
+
+  postNewCard(newCardNameInput, newCardLinkInput, endPoint) {
+    const body = {
+      name: newCardNameInput,
+      link: newCardLinkInput,
+    };
+
+    return this.fetchData(`${this.options}/${endPoint}`, "POST", body).then(
+      (result) => {
+        return result;
+      }
+    );
+  }
 }
 
 const apiInstance = new Api("https://around.nomoreparties.co/v1/web_es_07");

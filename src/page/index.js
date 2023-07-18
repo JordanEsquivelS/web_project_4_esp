@@ -145,29 +145,25 @@ function submitFormCallback(event) {
   popupForm.close();
 }
 
-// Función de devolución de llamada para enviar el formulario de nuevo lugar
 function submitNewPlaceCallback() {
   const name = document.querySelector("#titlePlace").value;
   const link = document.querySelector("#input-url").value;
 
-  // Crea una nueva tarjeta con los datos del formulario
-  const newCard = new Card(
-    {
-      id: "card-" + (section._items.length + 1),
-      name: name,
-      link: link,
-    },
-    handleCardClick
-  );
-
-  // Obtén el elemento del DOM de la nueva tarjeta
-  const newCardElement = newCard.createCard();
-
-  // Agrega la nueva tarjeta al contenedor
-  section.addItem(newCardElement);
+  // Crear la nueva tarjeta a través del API
+  apiInstance
+    .postNewCard(name, link, "cards")
+    .then((result) => {
+      const newCard = new Card(result, handleCardClick);
+      const newCardElement = newCard.createCard();
+      section.addItem(newCardElement);
+    })
+    .catch((error) => {
+      console.log("Error al agregar la nueva imagen:", error);
+    });
 
   newPlaceForm.close();
 }
+
 // Función de devolución de llamada para enviar el formulario de imagen
 function submitImgCallback(event) {
   event.preventDefault();
@@ -217,3 +213,5 @@ const symbol = document.createTextNode(String.fromCharCode(169));
 // Agregar el símbolo de copyright y el año actual al contenido del elemento
 footer.textContent = ` ${year} Jordan Esquivel Silva `;
 footer.prepend(symbol);
+
+export { handleCardClick };
