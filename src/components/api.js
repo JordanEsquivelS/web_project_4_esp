@@ -80,6 +80,29 @@ class Api {
       }
     );
   }
+  deleteCard(endPoint) {
+    return this.fetchData(`${this.options}/${endPoint}`, "DELETE").then(
+      (result) => {
+        return result;
+      }
+    );
+  }
+
+  likeCard(endPoint) {
+    return this.fetchData(`${this.options}/${endPoint}`, "PUT").then(
+      (result) => {
+        return result;
+      }
+    );
+  }
+
+  deleteLike(endPoint) {
+    return this.fetchData(`${this.options}/${endPoint}`, "DELETE").then(
+      (result) => {
+        return result;
+      }
+    );
+  }
 }
 
 const apiInstance = new Api("https://around.nomoreparties.co/v1/web_es_07");

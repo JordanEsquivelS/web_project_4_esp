@@ -48,12 +48,11 @@ class UserInfo {
       .editUserInfo(name, profession, "users/me")
       .then((result) => {
         console.log("Datos guardados en el servidor:", result);
+        this.closeForm();
       })
       .catch((error) => {
         console.log("Error al guardar los datos:", error);
       });
-
-    this.closeForm();
   }
 
   closeForm() {
