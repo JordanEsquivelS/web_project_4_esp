@@ -8,6 +8,7 @@ import UserPicture from "../components/userPicture.js";
 import PopupWithImage from "../components/popupWithImage.js";
 import apiInstance from "../components/api";
 
+const Swal = window.Sweetalert2;
 // Obtener referencias a los elementos del DOM
 const editButton = document.querySelector(".profile-info__edit");
 const addButton = document.querySelector(".profile__addPlace");
@@ -135,6 +136,19 @@ apiInstance
 function submitFormCallback(event) {
   const nameInput = document.querySelector("#name").value;
   const aboutMeInput = document.querySelector("#aboutMe").value;
+
+  if (
+    nameInput.trim() === "" ||
+    !/^[a-zA-Z\s\u00C0-\u017F]*$/.test(nameInput.trim())
+  ) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "Asegúrate de que el campo de nombre solo contenga letras.",
+    });
+    popupForm.close();
+    return;
+  }
 
   console.log("Valor de nameInput:", nameInput);
   console.log("Valor de aboutMeInput:", aboutMeInput);
