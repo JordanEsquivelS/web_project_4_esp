@@ -1,6 +1,6 @@
-/*UserInfo.js */
 import apiInstance from "../components/api.js";
 const Swal = window.Sweetalert2;
+
 class UserInfo {
   constructor(
     nameSelector,
@@ -48,23 +48,15 @@ class UserInfo {
       .editUserInfo(name, profession, "users/me")
       .then((result) => {
         console.log("Datos guardados en el servidor:", result);
-        this.closeForm();
       })
       .catch((error) => {
         console.log("Error al guardar los datos:", error);
       });
   }
 
-  closeForm() {
-    const popup = document.querySelector(".popup");
-    popup.classList.remove("open");
-    this._formValidator.resetValidation(); // Restablecer la validación del formulario
-  }
-
   setEventListeners() {
     this._submitButton.addEventListener("click", (evt) => {
       this.getUserInfo();
-      this.closeForm();
     });
   }
 }
