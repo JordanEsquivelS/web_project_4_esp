@@ -133,7 +133,7 @@ apiInstance
   });
 
 // Función de devolución de llamada para enviar el formulario de edición
-function submitFormCallback(event) {
+function submitFormCallback() {
   const nameInput = document.querySelector("#name").value;
   const aboutMeInput = document.querySelector("#aboutMe").value;
 

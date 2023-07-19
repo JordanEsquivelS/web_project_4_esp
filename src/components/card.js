@@ -14,6 +14,7 @@ apiInstance
       link: card.link,
       owner: card.owner, // Agrega la propiedad "owner" a cada tarjeta
       cardId: card._id, // Agrega el ID de la tarjeta
+      likes: card.likes || [], // Agrega los likes de la tarjeta
     }));
     initialCards.reverse(); // Invertir el orden de los elementos
     // Configurar la sección de tarjetas después de recibir las imágenes del servidor
@@ -23,16 +24,31 @@ apiInstance
         const card = new Card(item, handleCardClick);
         const cardElement = card.createCard();
 
+        // Establecer el atributo data-card-id con el ID de la tarjeta
+        cardElement.dataset.cardId = item.cardId;
+
         // Verificar si el propietario de la tarjeta coincide con tu ID de usuario
         if (item.owner._id === "881c7f60ed5326b0694b6b1a") {
           const deleteButton = cardElement.querySelector(".photo-grid__delete");
           deleteButton.style.display = "block";
           if (item.cardId) {
-            card._configureDeleteEvent(cardElement, item.cardId); // Agregar el ID de la tarjeta al configurar el evento de eliminación
+            card._configureDeleteEvent(cardElement, item.cardId); // <- Cambio aquí
           }
         } else {
           const deleteButton = cardElement.querySelector(".photo-grid__delete");
           deleteButton.style.display = "none";
+        }
+
+        // Verificar si el usuario actual ha dado like a la tarjeta y actualizar el contador
+        const likeButton = cardElement.querySelector(".photo-grid__like");
+        const likeCounter = cardElement.querySelector(
+          ".photo-grid__likeCounter"
+        );
+        if (item.likes && item.likes.includes("881c7f60ed5326b0694b6b1a")) {
+          likeButton.classList.add("photo-grid__like_active");
+        }
+        if (item.likes && item.likes.length) {
+          likeCounter.textContent = item.likes.length.toString();
         }
 
         section.addItem(cardElement);
@@ -50,6 +66,7 @@ class Card {
   constructor(data, handleCardClick) {
     this.name = data.name;
     this.link = data.link;
+    this.likes = data.likes || [];
     this._handleCardClick = handleCardClick;
     this._deleteConfirmationPopup = new Popup("#deleteCard"); // Instancia de Popup para el popup deleteCard
   }
@@ -65,7 +82,7 @@ class Card {
     const likeButton = cardElement.querySelector(".photo-grid__like");
 
     likeButton.addEventListener("click", () => {
-      likeButton.classList.toggle("photo-grid__like_active");
+      this._handleLikeClick(likeButton, cardElement);
     });
   }
 
@@ -125,9 +142,67 @@ class Card {
     this._deleteConfirmationPopup.close(); // Cerrar el popup deleteCard
   }
 
+  _updateLikeCount(likeButton, cardElement) {
+    const likeCounter = cardElement.querySelector(".photo-grid__likeCounter");
+    likeCounter.textContent = this.likes.length.toString();
+    if (this.likes.includes("881c7f60ed5326b0694b6b1a")) {
+      likeButton.classList.add("photo-grid__like_active");
+    } else {
+      likeButton.classList.remove("photo-grid__like_active");
+    }
+  }
+
+  _handleLikeClick(likeButton, cardElement) {
+    const cardId = cardElement.dataset.cardId;
+
+    if (likeButton.classList.contains("photo-grid__like_active")) {
+      this._deleteLike(cardId)
+        .then(() => {
+          const likeCounter = cardElement.querySelector(
+            ".photo-grid__likeCounter"
+          );
+          this.likes.splice(this.likes.indexOf("881c7f60ed5326b0694b6b1a"), 1);
+          this._updateLikeCount(likeButton, cardElement);
+        })
+        .catch((error) => {
+          console.log("Error al eliminar el like:", error);
+        });
+    } else {
+      this._likeCard(cardId)
+        .then(() => {
+          const likeCounter = cardElement.querySelector(
+            ".photo-grid__likeCounter"
+          );
+          this.likes.push("881c7f60ed5326b0694b6b1a");
+          this._updateLikeCount(likeButton, cardElement);
+        })
+        .catch((error) => {
+          console.log("Error al dar like:", error);
+        });
+    }
+  }
+
+  _likeCard(cardId) {
+    return apiInstance.likeCard(`cards/likes/${cardId}`).catch((error) => {
+      console.log("Error al dar like a la tarjeta:", error);
+    });
+  }
+
+  _deleteLike(cardId) {
+    return apiInstance.deleteLike(`cards/likes/${cardId}`).catch((error) => {
+      console.log("Error al eliminar el like de la tarjeta:", error);
+    });
+  }
+
   createCard() {
     const cardElement = this._getTemplate();
+    cardElement.dataset.cardId = this.cardId;
     this._fillCardData(cardElement);
+    this._updateLikeCount(
+      cardElement.querySelector(".photo-grid__like"),
+      cardElement
+    );
+
     this._setEventListeners(cardElement);
 
     const cardImage = cardElement.querySelector(".photo-grid__image");
