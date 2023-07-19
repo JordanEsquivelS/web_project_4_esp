@@ -32,7 +32,7 @@ apiInstance
           const deleteButton = cardElement.querySelector(".photo-grid__delete");
           deleteButton.style.display = "block";
           if (item.cardId) {
-            card._configureDeleteEvent(cardElement, item.cardId); // <- Cambio aquí
+            card._configureDeleteEvent(cardElement, item.cardId); // Pasar el cardId correctamente
           }
         } else {
           const deleteButton = cardElement.querySelector(".photo-grid__delete");
@@ -67,6 +67,7 @@ class Card {
     this.name = data.name;
     this.link = data.link;
     this.likes = data.likes || [];
+    this.cardId = data.cardId;
     this._handleCardClick = handleCardClick;
     this._deleteConfirmationPopup = null;
   }
@@ -99,7 +100,7 @@ class Card {
     });
   }
 
-  _openDeletePopup(cardElement) {
+  _openDeletePopup(cardElement, cardId) {
     const deleteConfirmationPopupElement =
       document.querySelector("#deleteCard");
 
@@ -117,7 +118,7 @@ class Card {
       );
     confirmationButton.addEventListener("click", (event) => {
       event.preventDefault();
-      this._deleteCard(cardElement);
+      this._deleteCard(cardElement, cardId); // Pasar el cardId correctamente
       this._closeDeletePopup();
     });
 

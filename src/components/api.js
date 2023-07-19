@@ -80,6 +80,7 @@ class Api {
       }
     );
   }
+
   deleteCard(endPoint) {
     return this.fetchData(`${this.options}/${endPoint}`, "DELETE").then(
       (result) => {
