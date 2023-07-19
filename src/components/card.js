@@ -68,7 +68,7 @@ class Card {
     this.link = data.link;
     this.likes = data.likes || [];
     this._handleCardClick = handleCardClick;
-    this._deleteConfirmationPopup = new Popup("#deleteCard"); // Instancia de Popup para el popup deleteCard
+    this._deleteConfirmationPopup = null;
   }
 
   _getTemplate() {
@@ -99,8 +99,17 @@ class Card {
     });
   }
 
-  _openDeletePopup(cardElement, cardId) {
-    this._deleteConfirmationPopup.open(); // Abrir el popup deleteCard
+  _openDeletePopup(cardElement) {
+    const deleteConfirmationPopupElement =
+      document.querySelector("#deleteCard");
+
+    if (!deleteConfirmationPopupElement) {
+      console.log("El elemento #deleteCard no se encuentra en el DOM");
+      return;
+    }
+
+    this._deleteConfirmationPopup = new Popup("#deleteCard");
+    this._deleteConfirmationPopup.open();
 
     const confirmationButton =
       this._deleteConfirmationPopup._popup.querySelector(
@@ -108,11 +117,10 @@ class Card {
       );
     confirmationButton.addEventListener("click", (event) => {
       event.preventDefault();
-      this._deleteCard(cardElement, cardId);
+      this._deleteCard(cardElement);
       this._closeDeletePopup();
     });
 
-    // Configurar evento de cierre del popup cuando se hace clic en el botón de cerrar
     const closeButton = this._deleteConfirmationPopup._popup.querySelector(
       ".popup__container-image"
     );
