@@ -23,7 +23,10 @@ class UserPicture {
 
   getPicture() {
     const imageUrl = this._profilePictureInput.value;
+    const submitButton = document.querySelector("#submit_imgProfile");
 
+    // Cambiar el texto del botón a "GUARDANDO..."
+    submitButton.textContent = "GUARDANDO...";
     this.setPicture(imageUrl);
     apiInstance
       .editUserPicture(imageUrl, "users/me/avatar")
@@ -34,7 +37,12 @@ class UserPicture {
         console.log("Error al guardar la imagen:", error);
       });
 
-    this.closeForm();
+    // Cerrar el formulario después de 0.6 segundos
+    setTimeout(() => {
+      this.closeForm();
+      // Cambiar el texto del botón de vuelta a "Guardar"
+      submitButton.textContent = "GUARDAR";
+    }, 600);
   }
 
   closeForm() {

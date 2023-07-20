@@ -136,15 +136,16 @@ apiInstance
 function submitFormCallback() {
   const nameInput = document.querySelector("#name").value;
   const aboutMeInput = document.querySelector("#aboutMe").value;
+  const submitButton = document.querySelector("#submit_editProfile");
 
   if (
     nameInput.trim() === "" ||
-    !/^[a-zA-Z\s\u00C0-\u017F]*$/.test(nameInput.trim())
+    !/^[a-zA-Z\s\u00C0-\u017FáéíóúÁÉÍÓÚüÜñÑ.,]*$/.test(nameInput.trim())
   ) {
     Swal.fire({
       icon: "error",
       title: "Error",
-      text: "Asegúrate de que el campo de nombre solo contenga letras.",
+      text: "Asegúrate de que el campo de nombre solo contenga letras, acentos y punto.",
     });
     popupForm.close();
     return;
@@ -154,26 +155,45 @@ function submitFormCallback() {
   console.log("Valor de aboutMeInput:", aboutMeInput);
 
   userInfo.setUserInfo(nameInput, aboutMeInput);
-  popupForm.close();
+
+  // Cambiar el texto del botón a "GUARDANDO..."
+  submitButton.textContent = "GUARDANDO...";
+
+  // Cerrar el formulario después de 0.5 segundos
+  setTimeout(function () {
+    popupForm.close();
+    // Cambiar el texto del botón de vuelta a "Guardar"
+    submitButton.textContent = "Guardar";
+  }, 600);
 }
 
 function submitNewPlaceCallback() {
   const name = document.querySelector("#titlePlace").value;
   const link = document.querySelector("#input-url").value;
+  const submitButton = document.querySelector("#create");
 
-  // Crear la nueva tarjeta a través del API
-  apiInstance
-    .postNewCard(name, link, "cards")
-    .then((result) => {
-      const newCard = new Card(result, handleCardClick);
-      const newCardElement = newCard.createCard();
-      section.addItem(newCardElement);
-    })
-    .catch((error) => {
-      console.log("Error al agregar la nueva imagen:", error);
-    });
+  // Cambiar el texto del botón a "GUARDANDO..."
+  submitButton.textContent = "GUARDANDO...";
 
-  newPlaceForm.close();
+  // Crear la nueva tarjeta a través del API con una demora de 2 segundos
+  setTimeout(() => {
+    apiInstance
+      .postNewCard(name, link, "cards")
+      .then((result) => {
+        const newCard = new Card(result, handleCardClick);
+        const newCardElement = newCard.createCard();
+        section.addItem(newCardElement);
+      })
+      .catch((error) => {
+        console.log("Error al agregar la nueva imagen:", error);
+      });
+
+    // Después de 2 segundos, cerrar el popup y restablecer el texto del botón
+    setTimeout(() => {
+      newPlaceForm.close();
+      submitButton.textContent = "CREAR";
+    }, 500);
+  }, 500);
 }
 
 // Función de devolución de llamada para enviar el formulario de imagen

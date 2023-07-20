@@ -32,11 +32,14 @@ class UserInfo {
     const name = this._nameInput.value;
     const profession = this._professionInput.value;
 
-    if (name.trim() === "" || !/^[a-zA-Z\s\u00C0-\u017F]*$/.test(name.trim())) {
+    if (
+      name.trim() === "" ||
+      !/^[a-zA-Z\s\u00C0-\u017FáéíóúÁÉÍÓÚüÜñÑ.,]*$/.test(name.trim())
+    ) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Asegúrate de que el campo de nombre solo contenga letras.",
+        text: "Asegúrate de que el campo de nombre solo contenga letras, acentos y punto.",
       });
       return;
     }

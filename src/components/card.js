@@ -118,8 +118,16 @@ class Card {
       );
     confirmationButton.addEventListener("click", (event) => {
       event.preventDefault();
-      this._deleteCard(cardElement, cardId); // Pasar el cardId correctamente
-      this._closeDeletePopup();
+
+      const submitButton = document.querySelector("#btnConfirmationDelete");
+      // Cambiar el texto del botón a "GUARDANDO..."
+      submitButton.textContent = "ELIMINANDO...";
+      setTimeout(() => {
+        this._deleteCard(cardElement, cardId); // Pasar el cardId correctamente
+        this._closeDeletePopup();
+        // Cambiar el texto del botón de vuelta a "Guardar"
+        submitButton.textContent = "SI";
+      }, 1000); // Cerrar el popup después de 1 segundo (1000 milisegundos)
     });
 
     const closeButton = this._deleteConfirmationPopup._popup.querySelector(
