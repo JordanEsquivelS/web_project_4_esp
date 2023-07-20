@@ -105,14 +105,6 @@ class Card {
   }
 
   _openDeletePopup(cardElement, cardId) {
-    const deleteConfirmationPopupElement =
-      document.querySelector("#deleteCard");
-
-    if (!deleteConfirmationPopupElement) {
-      console.log("El elemento #deleteCard no se encuentra en el DOM");
-      return;
-    }
-
     this._deleteConfirmationPopup = new Popup("#deleteCard");
     this._deleteConfirmationPopup.open();
 
@@ -124,14 +116,12 @@ class Card {
       event.preventDefault();
 
       const submitButton = document.querySelector("#btnConfirmationDelete");
-      // Cambiar el texto del botón a "GUARDANDO..."
       submitButton.textContent = "ELIMINANDO...";
       setTimeout(() => {
-        this._deleteCard(cardElement, cardId); // Pasar el cardId correctamente
+        this._deleteCard(cardElement, cardId);
         this._closeDeletePopup();
-        // Cambiar el texto del botón de vuelta a "Guardar"
         submitButton.textContent = "SI";
-      }, 1000); // Cerrar el popup después de 1 segundo (1000 milisegundos)
+      }, 1000);
     });
 
     const closeButton = this._deleteConfirmationPopup._popup.querySelector(
@@ -146,9 +136,7 @@ class Card {
     const url = `cards/${cardId}`;
     apiInstance
       .deleteCard(url)
-      .then((result) => {
-        console.log("Imagen eliminada del servidor:", result);
-      })
+      .then(() => {})
       .catch((error) => {
         console.log("Error al eliminar la imagen del servidor:", error);
       });
@@ -232,7 +220,6 @@ class Card {
       this._handleCardClick(this.name, this.link);
     });
 
-    // Mover la configuración del evento de eliminación al final del método
     this._configureDeleteEvent(cardElement, this.cardId);
 
     return cardElement;

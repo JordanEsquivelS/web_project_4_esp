@@ -18,7 +18,6 @@ class UserPicture {
   setPicture(imageUrl) {
     this._profilePictureElement.src = imageUrl;
     this._profilePictureInput.value = imageUrl;
-    console.log("Imagen de usuario establecida:", imageUrl);
   }
 
   getPicture() {
@@ -30,9 +29,7 @@ class UserPicture {
     this.setPicture(imageUrl);
     apiInstance
       .editUserPicture(imageUrl, "users/me/avatar")
-      .then((result) => {
-        console.log("Imagen guardada en el servidor:", result);
-      })
+      .then(() => {})
       .catch((error) => {
         console.log("Error al guardar la imagen:", error);
       });

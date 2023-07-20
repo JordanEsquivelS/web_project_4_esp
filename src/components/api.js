@@ -8,10 +8,6 @@ class Api {
   }
 
   fetchData(url, method = "GET", body = null) {
-    console.log("URL de solicitud:", url);
-    console.log("Método:", method);
-    console.log("Cuerpo:", body);
-
     const requestOptions = {
       method: method,
       headers: this.headers,
@@ -20,13 +16,11 @@ class Api {
     if (body) {
       requestOptions.body = JSON.stringify(body);
     }
-    console.log("Opciones de solicitud:", requestOptions); // Agregar esta línea
     return fetch(url, requestOptions)
       .then((res) => {
         if (res.ok) {
           return res.json();
         }
-        console.log("Error en la respuesta del servidor:", res.status);
         return Promise.reject(`Error: ${res.status}`);
       })
       .catch((err) => {
@@ -40,7 +34,6 @@ class Api {
     });
   }
   editUserInfo(nameInput, aboutMeInput, endPoint) {
-    console.log("editUserInfo se está ejecutando");
     const body = {
       name: nameInput,
       about: aboutMeInput,

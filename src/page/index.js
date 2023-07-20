@@ -124,7 +124,6 @@ apiInstance
   .then((data) => {
     const { name, about, avatar } = data;
     userInfo.setUserInfo(name, about);
-    console.log(avatar); // Agregar esta línea para verificar el valor de la URL de la imagen
     const profileImage = document.querySelector("#profileImage");
     profileImage.src = avatar;
   })
@@ -150,9 +149,6 @@ function submitFormCallback() {
     popupForm.close();
     return;
   }
-
-  console.log("Valor de nameInput:", nameInput);
-  console.log("Valor de aboutMeInput:", aboutMeInput);
 
   userInfo.setUserInfo(nameInput, aboutMeInput);
 
@@ -200,10 +196,7 @@ function submitNewPlaceCallback() {
 function submitImgCallback(event) {
   event.preventDefault();
   const inputUrl = document.querySelector("#input-urlImg").value;
-  console.log("Valor de urlInput:", inputUrl);
-
   userPictureInstance.setUserPicture(inputUrl);
-
   editImgForm.close();
 }
 

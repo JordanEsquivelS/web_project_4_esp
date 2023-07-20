@@ -25,7 +25,6 @@ class UserInfo {
     this._professionElement.textContent = about;
     this._nameInput.value = name;
     this._professionInput.value = about;
-    console.log("Datos del usuario establecidos:", name, about);
   }
 
   getUserInfo() {
@@ -49,16 +48,14 @@ class UserInfo {
     // Ejecutar la solicitud PATCH utilizando la instancia de Api
     apiInstance
       .editUserInfo(name, profession, "users/me")
-      .then((result) => {
-        console.log("Datos guardados en el servidor:", result);
-      })
+      .then(() => {})
       .catch((error) => {
         console.log("Error al guardar los datos:", error);
       });
   }
 
   setEventListeners() {
-    this._submitButton.addEventListener("click", (evt) => {
+    this._submitButton.addEventListener("click", () => {
       this.getUserInfo();
     });
   }
