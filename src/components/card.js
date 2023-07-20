@@ -44,9 +44,13 @@ apiInstance
         const likeCounter = cardElement.querySelector(
           ".photo-grid__likeCounter"
         );
-        if (item.likes && item.likes.includes("881c7f60ed5326b0694b6b1a")) {
+        if (
+          item.likes &&
+          item.likes.some((like) => like._id === "881c7f60ed5326b0694b6b1a")
+        ) {
           likeButton.classList.add("photo-grid__like_active");
         }
+
         if (item.likes && item.likes.length) {
           likeCounter.textContent = item.likes.length.toString();
         }
@@ -227,6 +231,9 @@ class Card {
       event.stopPropagation();
       this._handleCardClick(this.name, this.link);
     });
+
+    // Mover la configuración del evento de eliminación al final del método
+    this._configureDeleteEvent(cardElement, this.cardId);
 
     return cardElement;
   }
