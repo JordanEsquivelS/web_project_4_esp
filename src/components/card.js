@@ -1,5 +1,4 @@
 import apiInstance from "../components/api.js";
-import Popup from "./popup.js";
 
 class Card {
   constructor(data, handleCardClick, createPopup) {

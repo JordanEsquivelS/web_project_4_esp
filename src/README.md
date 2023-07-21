@@ -2,7 +2,7 @@
 
 ### Descripción general
 
-El proyecto tiene como objetivo principal mostrar lugares interesantes de Estados Unidos donde los usuarios pueden explorar, editar su perfil personalizado y agregar nuevos lugares.
+El objetivo principal de este proyecto es presentar una amplia variedad de imágenes interesantes, que incluyen paisajes, animales, comida y mucho más. Los usuarios podrán explorar esta diversidad de imágenes, personalizar sus perfiles y también contribuir agregando nuevas imágenes a la colección.
 
 **Figma**
 
@@ -10,11 +10,25 @@ Se utilizó Figma como una guía de diseño para obtener datos y medidas precisa
 
 **Imágenes**
 
-Se empleó la técnica de grid en el proyecto para organizar y distribuir de manera eficiente las imágenes de los diferentes lugares alrededor de Estados Unidos.
+Las imágenes previamente almacenadas se cargarán automáticamente desde el servidor. ¡Pero también queremos ver tus contribuciones! Si deseas agregar tu propia imagen, utiliza el formulario correspondiente para compartirla con nosotros.
+
+## Agregar nuevas imágenes
+
+Si deseas agregar nuevas imágenes a esta documentación, sigue estos pasos:
+
+1. Para compartir tu imagen, simplemente súbela a un servicio de alojamiento de imágenes como Imgur o Cloudinary, o elige alguna de un repositorio ya existente.
+
+2. Una vez que hayas subido la imagen, copia el enlace directo de la misma.
+
+3. Utiliza el enlace directo en la siguiente sintaxis para agregar la imagen:
+
+![Titulo de Imagen](https://www.ejemplo.com/ruta/imagen2.png)
+
+4. Con estos simples pasos, la nueva imagen debería mostrarse en la página de forma instantánea.
 
 **Grid**
 
-Se empleó la técnica de grid en el proyecto para organizar y distribuir de manera eficiente las imágenes de los diferentes lugares alrededor de Estados Unidos.
+En este proyecto, se utilizó la técnica de grid para lograr una organización y distribución eficiente de las diversas imágenes.
 
 **JavaScript**
 
@@ -27,7 +41,7 @@ Se utilizó JavaScript para implementar diversas funcionalidades interactivas en
 - Se implementaron iconos interactivos, como un bote de basura para eliminar imágenes y un corazón para indicar "me gusta".
 
 - Se agregó validación a los formularios para garantizar que se ingresen datos válidos y se eviten errores.
-  
+
 - Los usuarios también tienen la posibilidad de añadir nuevos lugares mediante un formulario, proporcionando el nombre y el enlace del lugar deseado.
 
 **WebPack**
