@@ -20,9 +20,7 @@ Si deseas agregar nuevas imágenes a esta documentación, sigue estos pasos:
 
 2. Una vez que hayas subido la imagen, copia el enlace directo de la misma.
 
-3. Utiliza el enlace directo en la siguiente sintaxis para agregar la imagen:
-
-![Titulo de Imagen](https://www.ejemplo.com/ruta/imagen2.png)
+3. Utiliza el enlace directo en la siguiente sintaxis para agregar la imagen: https://www.ejemplo.com/ruta/imagen2.png
 
 4. Con estos simples pasos, la nueva imagen debería mostrarse en la página de forma instantánea.
 
