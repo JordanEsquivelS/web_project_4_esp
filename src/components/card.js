@@ -1,79 +1,15 @@
 import apiInstance from "../components/api.js";
 import Popup from "./popup.js";
-import Section from "./section.js";
-import { handleCardClick } from "../page/index.js";
-
-let initialCards = [];
-
-apiInstance
-  .getInitialCards("/cards")
-  .then((cards) => {
-    initialCards = cards.map((card, index) => ({
-      id: `card-${index}`,
-      name: card.name,
-      link: card.link,
-      owner: card.owner, // Agrega la propiedad "owner" a cada tarjeta
-      cardId: card._id, // Agrega el ID de la tarjeta
-      likes: card.likes || [], // Agrega los likes de la tarjeta
-    }));
-    initialCards.reverse(); // Invertir el orden de los elementos
-    // Configurar la sección de tarjetas después de recibir las imágenes del servidor
-    const sectionOptions = {
-      items: initialCards,
-      renderer: (item) => {
-        const card = new Card(item, handleCardClick);
-        const cardElement = card.createCard();
-
-        // Establecer el atributo data-card-id con el ID de la tarjeta
-        cardElement.dataset.cardId = item.cardId;
-
-        // Verificar si el propietario de la tarjeta coincide con tu ID de usuario
-        if (item.owner._id === "881c7f60ed5326b0694b6b1a") {
-          const deleteButton = cardElement.querySelector(".photo-grid__delete");
-          deleteButton.style.display = "block";
-          if (item.cardId) {
-            card._configureDeleteEvent(cardElement, item.cardId); // Pasar el cardId correctamente
-          }
-        } else {
-          const deleteButton = cardElement.querySelector(".photo-grid__delete");
-          deleteButton.style.display = "none";
-        }
-
-        // Verificar si el usuario actual ha dado like a la tarjeta y actualizar el contador
-        const likeButton = cardElement.querySelector(".photo-grid__like");
-        const likeCounter = cardElement.querySelector(
-          ".photo-grid__likeCounter"
-        );
-        if (
-          item.likes &&
-          item.likes.some((like) => like._id === "881c7f60ed5326b0694b6b1a")
-        ) {
-          likeButton.classList.add("photo-grid__like_active");
-        }
-
-        if (item.likes && item.likes.length) {
-          likeCounter.textContent = item.likes.length.toString();
-        }
-
-        section.addItem(cardElement);
-      },
-    };
-
-    const section = new Section(sectionOptions, "#grid-container");
-    section.render();
-  })
-  .catch((error) => {
-    console.log("Error al obtener las tarjetas iniciales:", error);
-  });
 
 class Card {
-  constructor(data, handleCardClick) {
+  constructor(data, handleCardClick, createPopup) {
     this.name = data.name;
     this.link = data.link;
     this.likes = data.likes || [];
     this.cardId = data.cardId;
     this._handleCardClick = handleCardClick;
     this._deleteConfirmationPopup = null;
+    this._createPopup = createPopup;
   }
 
   _getTemplate() {
@@ -105,7 +41,7 @@ class Card {
   }
 
   _openDeletePopup(cardElement, cardId) {
-    this._deleteConfirmationPopup = new Popup("#deleteCard");
+    this._deleteConfirmationPopup = this._createPopup();
     this._deleteConfirmationPopup.open();
 
     const confirmationButton =
@@ -115,7 +51,9 @@ class Card {
     confirmationButton.addEventListener("click", (event) => {
       event.preventDefault();
 
-      const submitButton = document.querySelector("#btnConfirmationDelete");
+      const submitButton = this._deleteConfirmationPopup._popup.querySelector(
+        "#btnConfirmationDelete"
+      );
       submitButton.textContent = "ELIMINANDO...";
       setTimeout(() => {
         this._deleteCard(cardElement, cardId);
@@ -134,17 +72,29 @@ class Card {
 
   _deleteCardFromServer(cardId) {
     const url = `cards/${cardId}`;
-    apiInstance
-      .deleteCard(url)
-      .then(() => {})
-      .catch((error) => {
-        console.log("Error al eliminar la imagen del servidor:", error);
-      });
+    return apiInstance.deleteCard(url).catch((error) => {
+      console.log("Error al eliminar la imagen del servidor:", error);
+      throw error; // Lanzar el error para que se pueda manejar en _deleteCard
+    });
   }
 
   _deleteCard(cardElement, cardId) {
-    this._deleteCardFromServer(cardId);
-    cardElement.remove();
+    if (cardElement.classList.contains("deleting")) {
+      return;
+    }
+
+    cardElement.classList.add("deleting");
+
+    this._deleteCardFromServer(cardId)
+      .then(() => {
+        cardElement.remove();
+      })
+      .catch((error) => {
+        console.log("Error al eliminar la imagen del servidor:", error);
+      })
+      .finally(() => {
+        cardElement.classList.remove("deleting");
+      });
   }
 
   _closeDeletePopup() {
@@ -227,4 +177,3 @@ class Card {
 }
 
 export default Card;
-export { initialCards };

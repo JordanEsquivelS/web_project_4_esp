@@ -1,12 +1,13 @@
 import "../page/index.css";
 import FormValidator from "../components/formValidator.js";
 import Section from "../components/section.js";
-import Card, { initialCards } from "../components/card.js";
+import Card from "../components/card.js";
 import PopupWithForm from "../components/popupWithForm.js";
 import UserInfo from "../components/userInfo.js";
 import UserPicture from "../components/userPicture.js";
 import PopupWithImage from "../components/popupWithImage.js";
 import apiInstance from "../components/api";
+import Popup from "../components/popup.js";
 
 const Swal = window.Sweetalert2;
 // Obtener referencias a los elementos del DOM
@@ -26,6 +27,71 @@ const handleCardClick = (name, link) => {
 closeImageButton.addEventListener("click", () => {
   popupImage.close();
 });
+
+const initialCards = [];
+
+apiInstance
+  .getInitialCards("/cards")
+  .then((cards) => {
+    const transformedCards = cards.map((card, index) => ({
+      id: `card-${index}`,
+      name: card.name,
+      link: card.link,
+      owner: card.owner,
+      cardId: card._id,
+      likes: card.likes || [],
+    }));
+    transformedCards.reverse();
+
+    const sectionOptions = {
+      items: transformedCards,
+      renderer: (item) => {
+        const card = new Card(
+          item,
+          handleCardClick,
+          () => new Popup("#deleteCard")
+        );
+        const cardElement = card.createCard();
+
+        cardElement.dataset.cardId = item.cardId;
+
+        if (item.owner._id === "881c7f60ed5326b0694b6b1a") {
+          const deleteButton = cardElement.querySelector(".photo-grid__delete");
+          deleteButton.style.display = "block";
+          if (item.cardId) {
+            card._configureDeleteEvent(cardElement, item.cardId);
+          }
+        } else {
+          const deleteButton = cardElement.querySelector(".photo-grid__delete");
+          deleteButton.style.display = "none";
+        }
+
+        const likeButton = cardElement.querySelector(".photo-grid__like");
+        const likeCounter = cardElement.querySelector(
+          ".photo-grid__likeCounter"
+        );
+
+        if (
+          item.likes &&
+          item.likes.some((like) => like._id === "881c7f60ed5326b0694b6b1a")
+        ) {
+          likeButton.classList.add("photo-grid__like_active");
+        }
+
+        if (item.likes && item.likes.length) {
+          likeCounter.textContent = item.likes.length.toString();
+        }
+
+        section.addItem(cardElement);
+      },
+    };
+
+    const section = new Section(sectionOptions, "#grid-container");
+    section.render();
+  })
+  .catch((error) => {
+    console.log("Error al obtener las tarjetas iniciales:", error);
+  });
 
 // Configurar el validador de formularios
 const formValidatorOptions = {
@@ -171,25 +237,44 @@ function submitNewPlaceCallback() {
   // Cambiar el texto del botón a "GUARDANDO..."
   submitButton.textContent = "GUARDANDO...";
 
-  // Crear la nueva tarjeta a través del API con una demora de 2 segundos
-  setTimeout(() => {
-    apiInstance
-      .postNewCard(name, link, "cards")
-      .then((result) => {
-        const newCard = new Card(result, handleCardClick);
-        const newCardElement = newCard.createCard();
-        section.addItem(newCardElement);
-      })
-      .catch((error) => {
-        console.log("Error al agregar la nueva imagen:", error);
-      });
+  // Crear la nueva tarjeta a través del API
+  apiInstance
+    .postNewCard(name, link, "cards")
+    .then((result) => {
+      // Obtener el ID de la tarjeta recién creada
+      const cardId = result._id;
 
-    // Después de 2 segundos, cerrar el popup y restablecer el texto del botón
-    setTimeout(() => {
-      newPlaceForm.close();
-      submitButton.textContent = "CREAR";
-    }, 500);
-  }, 500);
+      // Crear una instancia de la tarjeta
+      const card = new Card(
+        {
+          name: name,
+          link: link,
+          likes: [],
+          cardId: cardId,
+        },
+        handleCardClick,
+        () => new Popup("#deleteCard")
+      );
+
+      // Crear el elemento de la tarjeta
+      const cardElement = card.createCard();
+
+      // Configurar el evento de eliminación de la tarjeta
+      card._configureDeleteEvent(cardElement, cardId);
+
+      // Agregar la tarjeta al DOM
+      section.addItem(cardElement);
+    })
+    .catch((error) => {
+      console.log("Error al agregar la nueva imagen:", error);
+    })
+    .finally(() => {
+      // Restablecer el texto del botón después de un tiempo
+      setTimeout(() => {
+        newPlaceForm.close();
+        submitButton.textContent = "CREAR";
+      }, 500);
+    });
 }
 
 // Función de devolución de llamada para enviar el formulario de imagen
@@ -238,5 +323,5 @@ const symbol = document.createTextNode(String.fromCharCode(169));
 // Agregar el símbolo de copyright y el año actual al contenido del elemento
 footer.textContent = ` ${year} Jordan Esquivel Silva `;
 footer.prepend(symbol);
-
-export { handleCardClick };
+/*
+export { handleCardClick };*/
